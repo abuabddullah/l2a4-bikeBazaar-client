@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Banner */}
-      <div className="relative h-[500px]">
+      <div className="relative h-[350px]">
         <img
           src={banners[currentBanner].image}
           alt={banners[currentBanner].title}

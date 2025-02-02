@@ -1,13 +1,17 @@
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { ShoppingCart, Truck, Shield, RotateCcw } from 'lucide-react';
-import { addToCart } from '../store/slices/cartSlice';
-import productsData from '../data/products.json';
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { LuRotateCcw } from "react-icons/lu";
+import { LuShield } from "react-icons/lu";
+import { FiTruck } from "react-icons/fi";
+import { BsCart } from "react-icons/bs";
+
+import { addToCart } from "../store/slices/cartSlice";
+import productsData from "../data/products.json";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = productsData.products.find(p => p.id === id);
+  const product = productsData.products.find((p) => p.id === id);
 
   if (!product) {
     return (
@@ -23,20 +27,20 @@ export default function ProductDetails() {
 
   const features = [
     {
-      icon: Truck,
-      title: 'Free Shipping',
-      description: 'On orders over $500'
+      icon: FiTruck,
+      title: "Free Shipping",
+      description: "On orders over $500",
     },
     {
-      icon: Shield,
-      title: '2 Year Warranty',
-      description: 'Full coverage'
+      icon: LuShield,
+      title: "2 Year Warranty",
+      description: "Full coverage",
     },
     {
-      icon: RotateCcw,
-      title: '30 Day Return',
-      description: 'Money back guarantee'
-    }
+      icon: LuRotateCcw,
+      title: "30 Day Return",
+      description: "Money back guarantee",
+    },
   ];
 
   return (
@@ -58,9 +62,15 @@ export default function ProductDetails() {
           <div className="bg-white p-8 rounded-lg shadow">
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-2xl font-bold text-orange-500">${product.price}</span>
-              <span className="text-sm text-gray-500">Brand: {product.brand}</span>
-              <span className="text-sm text-gray-500">Model: {product.model}</span>
+              <span className="text-2xl font-bold text-orange-500">
+                ${product.price}
+              </span>
+              <span className="text-sm text-gray-500">
+                Brand: {product.brand}
+              </span>
+              <span className="text-sm text-gray-500">
+                Model: {product.model}
+              </span>
             </div>
 
             <p className="text-gray-600 mb-8">{product.description}</p>
@@ -68,8 +78,16 @@ export default function ProductDetails() {
             <div className="mb-8">
               <h2 className="font-semibold mb-2">Stock Status:</h2>
               <div className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${product.stock > 0 ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                <span>{product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</span>
+                <span
+                  className={`w-3 h-3 rounded-full ${
+                    product.stock > 0 ? "bg-green-500" : "bg-red-500"
+                  }`}
+                ></span>
+                <span>
+                  {product.stock > 0
+                    ? `${product.stock} in stock`
+                    : "Out of stock"}
+                </span>
               </div>
             </div>
 
@@ -78,7 +96,7 @@ export default function ProductDetails() {
               disabled={product.stock === 0}
               className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed mb-8 flex items-center justify-center gap-2"
             >
-              <ShoppingCart className="h-5 w-5" />
+              <BsCart className="h-5 w-5" />
               Add to Cart
             </button>
 
