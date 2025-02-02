@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { LuFilter } from "react-icons/lu";
-
+import { LuFilter, LuSearch } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import productsData from "../data/products.json";
@@ -10,16 +9,21 @@ export default function Products() {
   const categoryQueryParam = searchParams.get("category");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState("featured");
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     setSelectedCategories(categoryQueryParam ? [categoryQueryParam] : []);
   }, [categoryQueryParam]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState("featured");
 
   const categories = ["Mountain", "Road", "City"];
   const brands = ["Trek", "Giant", "Specialized"];
 
   const filteredProducts = productsData.products.filter((product) => {
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     const matchesPrice =
       product.price >= priceRange.min && product.price <= priceRange.max;
     const matchesCategory =
@@ -27,18 +31,31 @@ export default function Products() {
       selectedCategories.includes(product.category);
     const matchesBrand =
       selectedBrands.length === 0 || selectedBrands.includes(product.brand);
-    return matchesPrice && matchesCategory && matchesBrand;
+
+    return matchesSearch && matchesPrice && matchesCategory && matchesBrand;
   });
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
-        <div className="w-64 flex-shrink-0">
+        <div className="lg:w-64 flex-shrink-0">
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="flex items-center gap-2 mb-4">
               <LuFilter className="h-5 w-5" />
               <h2 className="font-semibold">Filters</h2>
+            </div>
+
+            {/* Search Input */}
+            <div className="mb-4 relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2 border rounded pl-10"
+              />
+              <LuSearch className="absolute left-3 top-2.5 text-gray-400" />
             </div>
 
             {/* Price Range */}
@@ -128,7 +145,7 @@ export default function Products() {
 
         {/* Products Grid */}
         <div className="flex-1">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
             <p className="text-gray-600">
               {filteredProducts.length} products found
             </p>
@@ -146,8 +163,7 @@ export default function Products() {
               </select>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
