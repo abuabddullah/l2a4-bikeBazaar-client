@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import {
   useChangePasswordMutation,
@@ -22,7 +22,7 @@ const Settings = () => {
     confirmPassword: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (profile) {
       setProfileData({
         name: profile.name,
