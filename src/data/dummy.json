@@ -2,22 +2,22 @@
   "users": [
     {
       "id": "1",
-      "name": "John Doe",
-      "email": "john@example.com",
+      "name": "Bike Baba",
+      "email": "bike@bazaar.com",
       "role": "admin",
       "status": "active"
     },
     {
       "id": "2",
       "name": "Jane Smith",
-      "email": "jane@example.com",
+      "email": "jane@bazaar.com",
       "role": "user",
       "status": "active"
     },
     {
       "id": "3",
       "name": "Bob Johnson",
-      "email": "bob@example.com",
+      "email": "bob@bazaar.com",
       "role": "user",
       "status": "inactive"
     }
@@ -25,48 +25,48 @@
   "products": [
     {
       "id": "1",
-      "name": "iPhone 14 Pro",
-      "brand": "Apple",
+      "name": "Mountain Explorer Pro",
+      "brand": "Trek",
       "model": "A2650",
       "price": 999.99,
-      "category": "Smartphones",
+      "category": "Mountain",
       "stock": 50
     },
     {
       "id": "2",
-      "name": "Galaxy S23 Ultra",
-      "brand": "Samsung",
+      "name": "City Cruiser Deluxe",
+      "brand": "Giant",
       "model": "SM-S918B",
       "price": 1199.99,
-      "category": "Smartphones",
+      "category": "City",
       "stock": 35
     },
     {
       "id": "3",
-      "name": "MacBook Pro 16",
-      "brand": "Apple",
+      "name": "Road Master Elite",
+      "brand": "Specialized",
       "model": "A2485",
       "price": 2499.99,
-      "category": "Laptops",
+      "category": "Road",
       "stock": 20
     },
     {
       "id": "4",
-      "name": "iPad Air",
-      "brand": "Apple",
-      "model": "A2588",
-      "price": 599.99,
-      "category": "Tablets",
-      "stock": 45
+      "name": "Mountain Explorer Pro",
+      "brand": "Trek",
+      "model": "A2650",
+      "price": 999.99,
+      "category": "Mountain",
+      "stock": 50
     },
     {
       "id": "5",
-      "name": "Surface Laptop 5",
-      "brand": "Microsoft",
-      "model": "1958",
-      "price": 1299.99,
-      "category": "Laptops",
-      "stock": 15
+      "name": "City Cruiser Deluxe",
+      "brand": "Giant",
+      "model": "SM-S918B",
+      "price": 1199.99,
+      "category": "City",
+      "stock": 35
     }
   ],
   "orders": [
@@ -94,7 +94,7 @@
   ],
   "profile": {
     "id": "1",
-    "name": "John Doe",
-    "email": "john@example.com"
+    "name": "Bike Baba",
+    "email": "bike@bazaar.com"
   }
 }

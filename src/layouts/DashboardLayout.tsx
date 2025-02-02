@@ -84,7 +84,7 @@ export const DashboardLayout: React.FC = () => {
             </button>
             <div className="flex items-center">
               <span className="text-sm font-medium text-gray-700">
-                john@example.com
+                bike@bazaar.com
               </span>
             </div>
           </div>
