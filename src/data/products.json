@@ -1,0 +1,37 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Mountain Explorer Pro",
+      "description": "Professional mountain bike with advanced suspension system",
+      "price": 1299.99,
+      "brand": "Trek",
+      "model": "X-2023",
+      "stock": 15,
+      "image": "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=800",
+      "category": "Mountain"
+    },
+    {
+      "id": "2",
+      "name": "City Cruiser Deluxe",
+      "description": "Comfortable city bike perfect for daily commuting",
+      "price": 799.99,
+      "brand": "Giant",
+      "model": "C-500",
+      "stock": 20,
+      "image": "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800",
+      "category": "City"
+    },
+    {
+      "id": "3",
+      "name": "Road Master Elite",
+      "description": "High-performance road bike for professional cyclists",
+      "price": 2499.99,
+      "brand": "Specialized",
+      "model": "R-2023",
+      "stock": 8,
+      "image": "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800",
+      "category": "Road"
+    }
+  ]
+}
