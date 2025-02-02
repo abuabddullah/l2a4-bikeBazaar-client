@@ -18,6 +18,7 @@ export default function Login() {
         name: "Demo User",
         email,
         role: "user",
+        status: "active",
       })
     );
     navigate("/");

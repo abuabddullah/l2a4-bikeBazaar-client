@@ -1,0 +1,100 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "name": "Bob Johnson",
+      "email": "bob@example.com",
+      "role": "user",
+      "status": "inactive"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "iPhone 14 Pro",
+      "brand": "Apple",
+      "model": "A2650",
+      "price": 999.99,
+      "category": "Smartphones",
+      "stock": 50
+    },
+    {
+      "id": "2",
+      "name": "Galaxy S23 Ultra",
+      "brand": "Samsung",
+      "model": "SM-S918B",
+      "price": 1199.99,
+      "category": "Smartphones",
+      "stock": 35
+    },
+    {
+      "id": "3",
+      "name": "MacBook Pro 16",
+      "brand": "Apple",
+      "model": "A2485",
+      "price": 2499.99,
+      "category": "Laptops",
+      "stock": 20
+    },
+    {
+      "id": "4",
+      "name": "iPad Air",
+      "brand": "Apple",
+      "model": "A2588",
+      "price": 599.99,
+      "category": "Tablets",
+      "stock": 45
+    },
+    {
+      "id": "5",
+      "name": "Surface Laptop 5",
+      "brand": "Microsoft",
+      "model": "1958",
+      "price": 1299.99,
+      "category": "Laptops",
+      "stock": 15
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "customerId": "1",
+      "status": "delivered",
+      "total": 999.99,
+      "date": "2024-02-15"
+    },
+    {
+      "id": "2",
+      "customerId": "1",
+      "status": "processing",
+      "total": 2499.99,
+      "date": "2024-02-20"
+    },
+    {
+      "id": "3",
+      "customerId": "2",
+      "status": "shipped",
+      "total": 1799.98,
+      "date": "2024-02-22"
+    }
+  ],
+  "profile": {
+    "id": "1",
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}

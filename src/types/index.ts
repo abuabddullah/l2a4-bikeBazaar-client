@@ -14,7 +14,8 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: "user" | "admin";
+  status: "active" | "inactive";
 }
 
 export interface Order {
@@ -25,11 +26,18 @@ export interface Order {
     quantity: number;
   }>;
   totalAmount: number;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered';
+  status: "pending" | "processing" | "shipped" | "delivered";
   createdAt: string;
 }
 
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export interface Profile {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
 }

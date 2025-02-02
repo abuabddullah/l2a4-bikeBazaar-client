@@ -1,16 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
+import { DashboardLayout } from "../layouts/DashboardLayout";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
-import Products from "../pages/Products";
-import ProductDetails from "../pages/ProductDetails";
 import About from "../pages/About";
-import Contact from "../pages/Contact";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
-import DashboardLayout from "../layouts/DashboardLayout";
-import Dashboard from "../pages/Dashboard";
+import Contact from "../pages/Contact";
+import Dashboard from "../pages/dashboards/Dashboard";
+import DashBoardProducts from "../pages/dashboards/DashBoardProducts";
+import MyOrders from "../pages/dashboards/MyOrders";
+import Orders from "../pages/dashboards/Orders";
+import Settings from "../pages/dashboards/Settings";
+import Users from "../pages/dashboards/Users";
+import Home from "../pages/Home";
 import Login from "../pages/Login";
+import ProductDetails from "../pages/ProductDetails";
+import Products from "../pages/Products";
 import Register from "../pages/Register";
+import Dashboard2 from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -56,8 +62,32 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/products",
+        element: <DashBoardProducts />,
+      },
+      {
+        path: "/dashboard/orders",
+        element: <Orders />,
+      },
+      {
+        path: "/dashboard/users",
+        element: <Users />,
+      },
+      {
+        path: "/dashboard/my-orders",
+        element: <MyOrders />,
+      },
+      {
+        path: "/dashboard/settings",
+        element: <Settings />,
       },
     ],
   },
@@ -68,5 +98,9 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/d2",
+    element: <Dashboard2 />,
   },
 ]);

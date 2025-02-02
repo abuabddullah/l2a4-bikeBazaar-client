@@ -112,7 +112,7 @@ export default function Cart() {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>${totalAmount.toFixed(2)}</span>
+                <span>${totalAmount?.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
@@ -121,7 +121,7 @@ export default function Cart() {
               <div className="border-t pt-4">
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span>${totalAmount.toFixed(2)}</span>
+                  <span>${totalAmount?.toFixed(2)}</span>
                 </div>
               </div>
               <button className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600 transition-colors">

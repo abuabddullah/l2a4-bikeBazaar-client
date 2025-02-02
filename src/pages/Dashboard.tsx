@@ -1,7 +1,7 @@
 import { DollarSign, Package, ShoppingBag, Users } from "lucide-react";
 import { useState } from "react";
 
-export default function Dashboard() {
+export default function Dashboard2() {
   const [activeTab, setActiveTab] = useState("overview");
   // const user = useSelector((state: RootState) => state.auth.user);
   const user = { name: "John Doe", role: "Admin" };
