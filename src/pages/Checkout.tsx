@@ -1,5 +1,6 @@
-import { CreditCard, Truck } from "lucide-react";
 import { useState } from "react";
+import { CiCreditCard2 } from "react-icons/ci";
+import { FiTruck } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
@@ -28,7 +29,7 @@ export default function Checkout() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // payment processing starts
+    // payment processing এর কাজ করুম
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +176,7 @@ export default function Checkout() {
                       className="block w-full px-3 py-2 border border-gray-300 rounded-md"
                       placeholder="1234 5678 9012 3456"
                     />
-                    <CreditCard className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+                    <CiCreditCard2 className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -252,7 +253,7 @@ export default function Checkout() {
               </div>
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <Truck className="h-5 w-5 text-gray-400" />
+                  <FiTruck className="h-5 w-5 text-gray-400" />
                   <span>Shipping</span>
                 </div>
                 <span>

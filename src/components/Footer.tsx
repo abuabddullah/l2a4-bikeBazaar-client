@@ -1,4 +1,7 @@
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
+import { SlSocialFacebook } from "react-icons/sl";
+import { TfiInstagram } from "react-icons/tfi";
+
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -56,13 +59,13 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-white">
-                <Facebook />
+                <SlSocialFacebook />
               </a>
               <a href="#" className="hover:text-white">
-                <Instagram />
+                <TfiInstagram />
               </a>
               <a href="#" className="hover:text-white">
-                <Twitter />
+                <FaXTwitter />
               </a>
             </div>
           </div>

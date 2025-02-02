@@ -16,7 +16,6 @@ import Login from "../pages/Login";
 import ProductDetails from "../pages/ProductDetails";
 import Products from "../pages/Products";
 import Register from "../pages/Register";
-import Dashboard2 from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -98,9 +97,5 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-  },
-  {
-    path: "/d2",
-    element: <Dashboard2 />,
   },
 ]);

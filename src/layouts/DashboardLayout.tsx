@@ -1,13 +1,10 @@
-import {
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Package,
-  Settings,
-  ShoppingCart,
-  Users,
-  X,
-} from "lucide-react";
+import { X } from "lucide-react";
+import { CgLogOut, CgShoppingCart } from "react-icons/cg";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuLayoutDashboard, LuPackage } from "react-icons/lu";
+import { RiMenu2Fill } from "react-icons/ri";
+import { FiUsers } from "react-icons/fi";
+
 import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -16,12 +13,12 @@ export const DashboardLayout: React.FC = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Products", href: "/dashboard/products", icon: Package },
-    { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
-    { name: "Users", href: "/dashboard/users", icon: Users },
-    { name: "My Orders", href: "/dashboard/my-orders", icon: ShoppingCart },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: "Dashboard", href: "/dashboard", icon: LuLayoutDashboard },
+    { name: "Products", href: "/dashboard/products", icon: LuPackage },
+    { name: "Orders", href: "/dashboard/orders", icon: CgShoppingCart },
+    { name: "Users", href: "/dashboard/users", icon: FiUsers },
+    { name: "My Orders", href: "/dashboard/my-orders", icon: CgShoppingCart },
+    { name: "Settings", href: "/dashboard/settings", icon: IoSettingsOutline },
   ];
 
   return (
@@ -68,7 +65,7 @@ export const DashboardLayout: React.FC = () => {
           </nav>
           <div className="border-t border-gray-200 p-4">
             <button className="flex w-full items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900">
-              <LogOut className="mr-3 h-5 w-5" />
+              <CgLogOut className="mr-3 h-5 w-5" />
               <Link to="/">Back</Link>
             </button>
           </div>
@@ -83,7 +80,7 @@ export const DashboardLayout: React.FC = () => {
               className="text-gray-500 focus:outline-none lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
-              <Menu className="h-6 w-6" />
+              <RiMenu2Fill className="h-6 w-6" />
             </button>
             <div className="flex items-center">
               <span className="text-sm font-medium text-gray-700">

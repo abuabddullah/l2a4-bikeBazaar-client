@@ -1,4 +1,5 @@
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
@@ -72,7 +73,7 @@ export default function Cart() {
                         }
                         className="p-1 rounded-full hover:bg-gray-100"
                       >
-                        <Minus className="h-4 w-4" />
+                        <FiMinus className="h-4 w-4" />
                       </button>
                       <span className="w-8 text-center">{item.quantity}</span>
                       <button
@@ -84,7 +85,7 @@ export default function Cart() {
                         }
                         className="p-1 rounded-full hover:bg-gray-100"
                       >
-                        <Plus className="h-4 w-4" />
+                        <FiPlus className="h-4 w-4" />
                       </button>
                     </div>
                     <div className="flex items-center space-x-4">
@@ -95,7 +96,7 @@ export default function Cart() {
                         onClick={() => handleRemoveItem(item.product.id)}
                         className="text-red-500 hover:text-red-600"
                       >
-                        <Trash2 className="h-5 w-5" />
+                        <FiTrash2 className="h-5 w-5" />
                       </button>
                     </div>
                   </div>

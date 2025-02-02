@@ -1,4 +1,8 @@
-import { DollarSign, Package, ShoppingBag, Users } from "lucide-react";
+import { FaDollarSign } from "react-icons/fa6";
+import { FiPackage } from "react-icons/fi";
+import { LuUsers } from "react-icons/lu";
+import { RiShoppingBag3Line } from "react-icons/ri";
+
 import { useSelector } from "react-redux";
 import {
   useGetOrdersQuery,
@@ -15,11 +19,15 @@ const Dashboard = () => {
   const isAdmin = currentUser?.role === "admin";
 
   const stats = [
-    { icon: ShoppingBag, name: "Total Products", value: products?.length || 0 },
-    { icon: Package, name: "Total Orders", value: orders?.length || 0 },
-    { icon: DollarSign, name: "Revenue", value: "$12,345" },
     {
-      icon: Users,
+      icon: RiShoppingBag3Line,
+      name: "Total Products",
+      value: products?.length || 0,
+    },
+    { icon: FiPackage, name: "Total Orders", value: orders?.length || 0 },
+    { icon: FaDollarSign, name: "Revenue", value: "$12,345" },
+    {
+      icon: LuUsers,
       name: "Active Users",
       value: 12,
     },

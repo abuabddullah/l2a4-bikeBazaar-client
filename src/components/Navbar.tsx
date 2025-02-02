@@ -1,4 +1,7 @@
-import { Menu, ShoppingCart, User } from "lucide-react";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { CgShoppingCart } from "react-icons/cg";
+import { RiMenu3Fill } from "react-icons/ri";
+
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -24,7 +27,7 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-4">
             <Link to="/cart" className="relative">
-              <ShoppingCart className="h-6 w-6 text-gray-700" />
+              <CgShoppingCart className="h-6 w-6 text-gray-700" />
               {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                   {totalItems}
@@ -32,10 +35,10 @@ export default function Navbar() {
               )}
             </Link>
             <Link to="/dashboard">
-              <User className="h-6 w-6 text-gray-700" />
+              <LuLayoutDashboard className="h-6 w-6 text-gray-700" />
             </Link>
             <button className="md:hidden">
-              <Menu
+              <RiMenu3Fill
                 onClick={() => setIsSmallScreen(!isSmallScreen)}
                 className="h-6 w-6 text-gray-700"
               />

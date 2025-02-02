@@ -1,9 +1,11 @@
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { FaRegClock } from "react-icons/fa6";
+import { FiMapPin, FiPhone } from "react-icons/fi";
+import { IoMailOutline } from "react-icons/io5";
 
 export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission starts
+    // এখানে মেইল কয়ারা সিস্টেম করব পরে
   };
 
   return (
@@ -22,7 +24,7 @@ export default function Contact() {
             <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
             <div className="space-y-6">
               <div className="flex items-start">
-                <Mail className="h-6 w-6 text-orange-500 mt-1" />
+                <IoMailOutline className="h-6 w-6 text-orange-500 mt-1" />
                 <div className="ml-4">
                   <h3 className="text-lg font-medium">Email</h3>
                   <p className="text-gray-600">support@bikebazaar.com</p>
@@ -30,7 +32,7 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start">
-                <Phone className="h-6 w-6 text-orange-500 mt-1" />
+                <FiPhone className="h-6 w-6 text-orange-500 mt-1" />
                 <div className="ml-4">
                   <h3 className="text-lg font-medium">Phone</h3>
                   <p className="text-gray-600">+1 (555) 123-4567</p>
@@ -38,7 +40,7 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start">
-                <MapPin className="h-6 w-6 text-orange-500 mt-1" />
+                <FiMapPin className="h-6 w-6 text-orange-500 mt-1" />
                 <div className="ml-4">
                   <h3 className="text-lg font-medium">Address</h3>
                   <p className="text-gray-600">
@@ -52,7 +54,7 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start">
-                <Clock className="h-6 w-6 text-orange-500 mt-1" />
+                <FaRegClock className="h-6 w-6 text-orange-500 mt-1" />
                 <div className="ml-4">
                   <h3 className="text-lg font-medium">Business Hours</h3>
                   <p className="text-gray-600">

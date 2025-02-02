@@ -1,4 +1,5 @@
-import { Pencil, Trash } from "lucide-react";
+import { GoPencil } from "react-icons/go";
+import { FiTrash } from "react-icons/fi";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -104,13 +105,13 @@ const DashBoardProducts = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button className="text-orange-500 hover:text-orange-900 mr-3">
-                          <Pencil className="h-4 w-4" />
+                          <GoPencil className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
                           className="text-red-600 hover:text-red-900"
                         >
-                          <Trash className="h-4 w-4" />
+                          <FiTrash className="h-4 w-4" />
                         </button>
                       </td>
                     </tr>
