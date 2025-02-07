@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { ActiveLink } from "./ActiveLink";
 
 const menuItems = [
   { path: "/", label: "Home" },
@@ -10,7 +11,7 @@ const menuItems = [
 
 export const MobileMenus = () => {
   return (
-    <div className="mobile md:hidden flex flex-col bg-white absolute top-full w-full z-20 space-y-3 p-3 md:flex-row md:items-center md:space-x-8">
+    <div className="mobile md:hidden flex flex-col bg-white absolute top-full w-full z-20 space-y-3 p-3 md:flex-row md:items-center md:space-x-8 shadow-lg">
       {menuItems.map((item) => (
         <Link
           key={item.path}
@@ -28,13 +29,14 @@ export const TabMenues = () => {
   return (
     <div className="pad hidden md:flex items-center space-x-8">
       {menuItems.map((item) => (
-        <Link
+        <ActiveLink
           key={item.path}
           to={item.path}
-          className="text-gray-700 hover:text-orange-500"
+          className="text-white hover:underline"
+          activeClassName="font-bold underline"
         >
           {item.label}
-        </Link>
+        </ActiveLink>
       ))}
     </div>
   );

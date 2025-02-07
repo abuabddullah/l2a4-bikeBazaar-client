@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import RegisterForm from "../components/forms/RegisterForm";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -37,7 +38,7 @@ export default function Register() {
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
@@ -116,7 +117,8 @@ export default function Register() {
           >
             Create Account
           </button>
-        </form>
+        </form> */}
+        <RegisterForm />
       </div>
     </div>
   );

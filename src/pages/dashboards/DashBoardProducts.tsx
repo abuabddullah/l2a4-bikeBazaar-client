@@ -1,7 +1,9 @@
-import { GoPencil } from "react-icons/go";
-import { FiTrash } from "react-icons/fi";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { FiTrash } from "react-icons/fi";
+import { GoPencil } from "react-icons/go";
+import { Link } from "react-router-dom";
+import AddProductForm from "../../components/forms/AddProductForm";
 import {
   useAddProductMutation,
   useDeleteProductMutation,
@@ -105,7 +107,9 @@ const DashBoardProducts = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button className="text-orange-500 hover:text-orange-900 mr-3">
-                          <GoPencil className="h-4 w-4" />
+                          <Link to={`/dashboard/update-products/${product.id}`}>
+                            <GoPencil className="h-4 w-4" />
+                          </Link>
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
@@ -127,102 +131,7 @@ const DashBoardProducts = () => {
             <h2 className="text-lg font-medium text-gray-900 mb-4">
               Add New Product
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  value={newProduct.name}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, name: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Brand
-                </label>
-                <input
-                  type="text"
-                  value={newProduct.brand}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, brand: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Model
-                </label>
-                <input
-                  type="text"
-                  value={newProduct.model}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, model: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  value={newProduct.price}
-                  onChange={(e) =>
-                    setNewProduct({
-                      ...newProduct,
-                      price: Number(e.target.value),
-                    })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Category
-                </label>
-                <select
-                  value={newProduct.category}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, category: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                >
-                  <option value="">Select category</option>
-                  <option value="Smartphones">Smartphones</option>
-                  <option value="Laptops">Laptops</option>
-                  <option value="Tablets">Tablets</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  value={newProduct.stock}
-                  onChange={(e) =>
-                    setNewProduct({
-                      ...newProduct,
-                      stock: Number(e.target.value),
-                    })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-              >
-                Add Product
-              </button>
-            </form>
+            <AddProductForm />
           </div>
         </div>
       </div>
