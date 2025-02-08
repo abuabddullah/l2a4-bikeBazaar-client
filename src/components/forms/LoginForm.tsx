@@ -4,13 +4,7 @@ import { z } from "zod";
 import TextInput from "../reusableInputTags/TextInput";
 import PasswordInput from "../reusableInputTags/PasswordInput";
 import CheckboxInput from "../reusableInputTags/CheckboxInput";
-
-// Zod schema for login form validation
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
-  rememberMe: z.boolean().optional(), // Optional checkbox
-});
+import { loginSchema } from "../../zodSchemas/auth.schemas";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -24,13 +18,13 @@ const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false, // Default value for checkbox
+      rememberMe: false, // for  checkbox default value is false and unchecked
     },
   });
 
   const onSubmit = (data: LoginFormData) => {
     console.log("Login Data:", data);
-    // Perform login logic here
+    // all login releted code এহানে হবে
   };
 
   return (

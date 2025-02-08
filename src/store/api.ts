@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { User, Product, Order, Profile } from '../types';
-import dummyData from '../data/dummy.json';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { User, Product, Order, Profile } from "../types";
+import dummyData from "../data/dummy.json";
 
-// Using dummy data instead of actual API calls
+// Using dummy data instead of actual API calls for design only
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
-  tagTypes: ['User', 'Product', 'Order', 'Profile'],
+  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  tagTypes: ["User", "Product", "Order", "Profile"],
   endpoints: (builder) => ({
     // Users
     getUsers: builder.query<User[], void>({
@@ -13,7 +13,7 @@ export const api = createApi({
     }),
     updateUserStatus: builder.mutation<User, { id: string; status: string }>({
       queryFn: ({ id, status }) => {
-        const user = dummyData.users.find(u => u.id === id);
+        const user = dummyData.users.find((u) => u.id === id);
         return { data: { ...user, status } as User };
       },
     }),
@@ -30,11 +30,13 @@ export const api = createApi({
         } as Product,
       }),
     }),
-    updateProduct: builder.mutation<Product, Partial<Product> & { id: string }>({
-      queryFn: (product) => ({
-        data: product as Product,
-      }),
-    }),
+    updateProduct: builder.mutation<Product, Partial<Product> & { id: string }>(
+      {
+        queryFn: (product) => ({
+          data: product as Product,
+        }),
+      }
+    ),
     deleteProduct: builder.mutation<void, string>({
       queryFn: () => ({ data: undefined }),
     }),
@@ -45,7 +47,7 @@ export const api = createApi({
     }),
     updateOrderStatus: builder.mutation<Order, { id: string; status: string }>({
       queryFn: ({ id, status }) => {
-        const order = dummyData.orders.find(o => o.id === id);
+        const order = dummyData.orders.find((o) => o.id === id);
         return { data: { ...order, status } as Order };
       },
     }),
@@ -59,7 +61,10 @@ export const api = createApi({
         data: { ...dummyData.profile, ...profile },
       }),
     }),
-    changePassword: builder.mutation<void, { currentPassword: string; newPassword: string }>({
+    changePassword: builder.mutation<
+      void,
+      { currentPassword: string; newPassword: string }
+    >({
       queryFn: () => ({ data: undefined }),
     }),
   }),

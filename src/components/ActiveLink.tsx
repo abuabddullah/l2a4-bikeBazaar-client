@@ -8,19 +8,19 @@ interface ActiveLinkProps {
   className?: string;
 }
 
-// Reusable ActiveLink Component
+
 export const ActiveLink: React.FC<ActiveLinkProps> = ({
   to,
   children,
-  activeClassName = "font-bold underline", // Default active class
-  className = "", // Default base class
+  activeClassName = "font-bold underline", // এখানের মুলত active link এর styling হবি
+  className = "", 
 }) => {
   const location = useLocation();
 
   // Check if the current route matches the link's path
   const isActive = location.pathname === to;
 
-  // Combine base className with activeClassName if the link is active
+  // merge base className with activeClassName if the link is active
   const combinedClassName = `${className} ${isActive ? activeClassName : ""}`;
 
   return (

@@ -12,7 +12,6 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Demo login details
     dispatch(
       login({
         id: "1",

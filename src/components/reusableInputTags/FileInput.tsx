@@ -12,7 +12,7 @@ interface FileInputProps {
 
 const FileInput: React.FC<FileInputProps> = ({ name, control, label }) => {
   const [preview, setPreview] = useState<string | null>(null);
-  const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+  const MAX_SIZE = 2 * 1024 * 1024; // 2MB maximum pic size
 
   return (
     <div className="space-y-2">

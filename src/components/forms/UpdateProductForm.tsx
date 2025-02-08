@@ -40,7 +40,7 @@ const UpdateProductForm = () => {
 
   const onSubmit = (data: UpdateProductFormData) => {
     console.log("Updated Product Data:", data);
-    // Here, you'd typically call your update API
+    // onsubmit e update product er api er kaj hobe
   };
 
   return (

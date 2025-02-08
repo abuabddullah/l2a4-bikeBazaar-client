@@ -4,19 +4,7 @@ import { z } from "zod";
 import TextInput from "../reusableInputTags/TextInput";
 import EmailInput from "../reusableInputTags/EmailInput";
 import PasswordInput from "../reusableInputTags/PasswordInput";
-
-// Zod schema for registration form validation
-const registerSchema = z
-  .object({
-    name: z.string().min(1, "Full name is required"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z.string().min(1, "Confirm password is required"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+import { registerSchema } from "../../zodSchemas/auth.schemas";
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
@@ -37,7 +25,7 @@ const RegisterForm = () => {
 
   const onSubmit = (data: RegisterFormData) => {
     console.log("Registration Data:", data);
-    // Perform registration logic here
+    // reg code likhte hobe
   };
 
   return (
