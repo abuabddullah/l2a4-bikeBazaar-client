@@ -35,9 +35,12 @@ export interface CartItem {
   quantity: number;
 }
 
-export interface Profile {
-  id: string;
+export interface IProfileResType {
+  _id: string;
   name: string;
   email: string;
-  avatar?: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }

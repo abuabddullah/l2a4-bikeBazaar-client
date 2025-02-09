@@ -1,14 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import TextInput from "../reusableInputTags/TextInput";
+import { registerSchema } from "../../zodSchemas/auth.schemas";
 import EmailInput from "../reusableInputTags/EmailInput";
 import PasswordInput from "../reusableInputTags/PasswordInput";
-import { registerSchema } from "../../zodSchemas/auth.schemas";
+import TextInput from "../reusableInputTags/TextInput";
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -23,9 +26,32 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log("Registration Data:", data);
-    // reg code likhte hobe
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      const result = await response.json();
+      console.log({ result });
+      toast.success("Registration successful", { id: "registration" });
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (

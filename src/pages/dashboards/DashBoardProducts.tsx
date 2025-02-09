@@ -107,7 +107,9 @@ const DashBoardProducts = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button className="text-orange-500 hover:text-orange-900 mr-3">
-                          <Link to={`/dashboard/update-products/${product.id}`}>
+                          <Link
+                            to={`/dashboard/admin/update-products/${product.id}`}
+                          >
                             <GoPencil className="h-4 w-4" />
                           </Link>
                         </button>

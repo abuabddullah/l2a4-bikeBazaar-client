@@ -1,25 +1,46 @@
 import { X } from "lucide-react";
 import { CgLogOut, CgShoppingCart } from "react-icons/cg";
-import { IoSettingsOutline } from "react-icons/io5";
+import { FiUsers } from "react-icons/fi";
 import { LuLayoutDashboard, LuPackage } from "react-icons/lu";
 import { RiMenu2Fill } from "react-icons/ri";
-import { FiUsers } from "react-icons/fi";
 
 import React, { useState } from "react";
+import { IoSettingsOutline } from "react-icons/io5";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useAppSelector } from "../store/hooks";
+import { selectCurrentUser } from "../store/slices/authSlice";
 
 export const DashboardLayout: React.FC = () => {
+  const user = useAppSelector(selectCurrentUser);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-
-  const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: LuLayoutDashboard },
-    { name: "Products", href: "/dashboard/products", icon: LuPackage },
-    { name: "Orders", href: "/dashboard/orders", icon: CgShoppingCart },
-    { name: "Users", href: "/dashboard/users", icon: FiUsers },
-    { name: "My Orders", href: "/dashboard/my-orders", icon: CgShoppingCart },
-    { name: "Settings", href: "/dashboard/settings", icon: IoSettingsOutline },
-  ];
+  let navigation;
+  if (user?.role === "admin") {
+    navigation = [
+      { name: "Dashboard", href: "/dashboard/admin", icon: LuLayoutDashboard },
+      { name: "Products", href: "/dashboard/admin/products", icon: LuPackage },
+      { name: "Orders", href: "/dashboard/admin/orders", icon: CgShoppingCart },
+      { name: "Users", href: "/dashboard/admin/users", icon: FiUsers },
+      {
+        name: "Settings",
+        href: "/dashboard/admin/settings",
+        icon: IoSettingsOutline,
+      },
+    ];
+  } else {
+    navigation = [
+      {
+        name: "My Orders",
+        href: "/dashboard/user/my-orders",
+        icon: CgShoppingCart,
+      },
+      {
+        name: "Settings",
+        href: "/dashboard/user/settings",
+        icon: IoSettingsOutline,
+      },
+    ];
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -84,7 +105,7 @@ export const DashboardLayout: React.FC = () => {
             </button>
             <div className="flex items-center">
               <span className="text-sm font-medium text-gray-700">
-                bike@bazaar.com
+                {user?.email}
               </span>
             </div>
           </div>

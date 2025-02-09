@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import UpdateProductForm from "../components/forms/UpdateProductForm";
+import ProtectedRoute from "../components/shared/ProtectedRoute";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import MainLayout from "../layouts/MainLayout";
 import About from "../pages/About";
@@ -49,7 +50,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute role="user">
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/checkout",
@@ -58,39 +63,61 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "/dashboard/admin",
+    element: (
+      <ProtectedRoute role="admin">
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
         element: <Dashboard />,
       },
       {
-        path: "/dashboard",
+        path: "/dashboard/admin",
         element: <Dashboard />,
       },
       {
-        path: "/dashboard/products",
+        path: "/dashboard/admin/products",
         element: <DashBoardProducts />,
       },
       {
-        path: "/dashboard/update-products/:id",
+        path: "/dashboard/admin/update-products/:id",
         element: <UpdateProductForm />,
       },
       {
-        path: "/dashboard/orders",
+        path: "/dashboard/admin/orders",
         element: <Orders />,
       },
       {
-        path: "/dashboard/users",
+        path: "/dashboard/admin/users",
         element: <Users />,
       },
       {
-        path: "/dashboard/my-orders",
+        path: "/dashboard/admin/settings",
+        element: <Settings />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/user",
+    element: (
+      <ProtectedRoute role="user">
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
         element: <MyOrders />,
       },
       {
-        path: "/dashboard/settings",
+        path: "/dashboard/user/my-orders",
+        element: <MyOrders />,
+      },
+      {
+        path: "/dashboard/user/settings",
         element: <Settings />,
       },
     ],

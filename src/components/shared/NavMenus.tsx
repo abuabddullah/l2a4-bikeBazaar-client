@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ActiveLink } from "./ActiveLink";
 
 const menuItems = [
@@ -6,7 +6,6 @@ const menuItems = [
   { path: "/products", label: "Products" },
   { path: "/about", label: "About" },
   { path: "/contact", label: "Contact" },
-  { path: "/login", label: "Login" },
 ];
 
 export const MobileMenus = () => {

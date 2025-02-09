@@ -2,12 +2,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useGetProfileQuery } from "../../store/api";
 import { updateProfileSchema } from "../../zodSchemas/commonSchema";
 import TextInput from "../reusableInputTags/TextInput";
+import toast from "react-hot-toast";
+import CustomToast from "../shared/CustomToast";
+import { MdErrorOutline } from "react-icons/md";
 
 type UpdateProfileFormData = z.infer<typeof updateProfileSchema>;
 
 const UpdateProfileForm = () => {
+  const { data: profile, isLoading } = useGetProfileQuery(undefined);
+
+  console.log({ profile });
   const {
     control,
     handleSubmit,
@@ -17,13 +24,16 @@ const UpdateProfileForm = () => {
   } = useForm<UpdateProfileFormData>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      name: "asif",
-      email: "asif@asif.asif",
+      name: profile?.name || "asif",
+      email: profile?.email || "asif@asif.asif",
     },
   });
 
   const onSubmit = (data: UpdateProfileFormData) => {
     console.log("Form Data:", data);
+    toast.error("Profile Updated feature not enabled yet", {
+      id: "profile-update",
+    });
   };
 
   return (

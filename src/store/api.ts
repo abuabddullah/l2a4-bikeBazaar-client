@@ -1,10 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { User, Product, Order, Profile } from "../types";
 import dummyData from "../data/dummy.json";
+import type { IProfileResType, Order, Product, User } from "../types";
+import { IApiResType } from "../types/res.types";
+import { RootState } from "./store";
 
 // Using dummy data instead of actual API calls for design only
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:5000/api",
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["User", "Product", "Order", "Profile"],
   endpoints: (builder) => ({
     // Users
@@ -53,10 +64,14 @@ export const api = createApi({
     }),
 
     // Profile
-    getProfile: builder.query<Profile, void>({
-      queryFn: () => ({ data: dummyData.profile }),
+    getProfile: builder.query<IProfileResType, void>({
+      query: () => "/users/profile",
+      transformResponse: (response: IApiResType<IProfileResType>) => {
+        console.log({ response });
+        return response.data;
+      },
     }),
-    updateProfile: builder.mutation<Profile, Partial<Profile>>({
+    updateProfile: builder.mutation<IProfileResType, Partial<IProfileResType>>({
       queryFn: (profile) => ({
         data: { ...dummyData.profile, ...profile },
       }),

@@ -1,14 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import TextInput from "../reusableInputTags/TextInput";
-import PasswordInput from "../reusableInputTags/PasswordInput";
-import CheckboxInput from "../reusableInputTags/CheckboxInput";
+import { useAppDispatch } from "../../store/hooks";
+import { login } from "../../store/slices/authSlice";
 import { loginSchema } from "../../zodSchemas/auth.schemas";
+import CheckboxInput from "../reusableInputTags/CheckboxInput";
+import PasswordInput from "../reusableInputTags/PasswordInput";
+import TextInput from "../reusableInputTags/TextInput";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     control,
     handleSubmit,
@@ -22,9 +27,33 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     console.log("Login Data:", data);
     // all login releted code এহানে হবে
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      const result = await response.json();
+      console.log({ result });
+      dispatch(login(result));
+      navigate("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (
