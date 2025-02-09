@@ -11,7 +11,9 @@ const Orders = () => {
   const handleStatusChange = async (id: string, status: string) => {
     try {
       await updateOrderStatus({ id, status }).unwrap();
-      toast.success("Order status updated successfully");
+      toast.success("Order status updated successfully", {
+        id: "order-status",
+      });
     } catch (error) {
       toast.error("Failed to update order status");
     }
@@ -50,12 +52,12 @@ const Orders = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {orders?.map((order) => (
-                <tr key={order.id}>
+                <tr key={order._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    #{order.id}
+                    #{order._id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {order.userId}
+                    {order?.userId?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -71,7 +73,7 @@ const Orders = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${order.totalAmount?.toFixed(2)}
+                    ${order.totalPrice?.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}
@@ -80,13 +82,14 @@ const Orders = () => {
                     <select
                       value={order.status}
                       onChange={(e) =>
-                        handleStatusChange(order.id, e.target.value)
+                        handleStatusChange(order._id, e.target.value)
                       }
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                     >
-                      <option value="processing">Processing</option>
+                      <option value="pending">Pending</option>
                       <option value="shipped">Shipped</option>
                       <option value="delivered">Delivered</option>
+                      <option value="cancelled">Cancelled</option>
                     </select>
                   </td>
                 </tr>

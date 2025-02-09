@@ -1,14 +1,13 @@
-import React from "react";
-import { useGetUsersQuery, useUpdateUserStatusMutation } from "../../store/api";
 import toast from "react-hot-toast";
+import { useGetUsersQuery, useUpdateUserStatusMutation } from "../../store/api";
 
 const Users = () => {
   const { data: users, isLoading } = useGetUsersQuery();
   const [updateUserStatus] = useUpdateUserStatusMutation();
 
-  const handleStatusChange = async (id: string, status: string) => {
+  const handleStatusChange = async (targetUserId: string, status: string) => {
     try {
-      await updateUserStatus({ id, status }).unwrap();
+      await updateUserStatus({ targetUserId, status }).unwrap();
       toast.success("User status updated successfully");
     } catch (error) {
       toast.error("Failed to update user status");
@@ -42,7 +41,7 @@ const Users = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {users?.map((user) => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
                       <div className="text-sm font-medium text-gray-900">
@@ -54,22 +53,35 @@ const Users = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {user.role}
                   </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <select
+                      value={user?.role}
+                      onChange={(e) =>
+                        handleStatusChange(user?._id, e.target.value)
+                      }
+                      className="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        user.status === "active"
+                        user?.status === "active"
                           ? "bg-green-100 text-green-800"
                           : "bg-red-100 text-red-800"
                       }`}
                     >
-                      {user.status}
+                      {user?.status || "active"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       onClick={() =>
                         handleStatusChange(
-                          user.id,
+                          user._id,
                           user.status === "active" ? "inactive" : "active"
                         )
                       }

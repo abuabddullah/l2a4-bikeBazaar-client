@@ -2,19 +2,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import toast from "react-hot-toast";
 import { useGetProfileQuery } from "../../store/api";
 import { updateProfileSchema } from "../../zodSchemas/commonSchema";
 import TextInput from "../reusableInputTags/TextInput";
-import toast from "react-hot-toast";
-import CustomToast from "../shared/CustomToast";
-import { MdErrorOutline } from "react-icons/md";
 
 type UpdateProfileFormData = z.infer<typeof updateProfileSchema>;
 
 const UpdateProfileForm = () => {
   const { data: profile, isLoading } = useGetProfileQuery(undefined);
 
-  console.log({ profile });
   const {
     control,
     handleSubmit,
@@ -35,6 +32,8 @@ const UpdateProfileForm = () => {
       id: "profile-update",
     });
   };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

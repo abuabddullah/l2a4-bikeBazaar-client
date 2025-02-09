@@ -12,7 +12,8 @@ export interface IUserResDataType {
 export interface IUser {
   name: string;
   email: string;
-  password: string;
+  password?: string;
+  status?: string;
   role: string;
   _id: string;
   createdAt: string;
@@ -28,4 +29,9 @@ export interface IGetProfileDataType {
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export interface IChangePassResType {
+  success: boolean;
+  message: string;
 }

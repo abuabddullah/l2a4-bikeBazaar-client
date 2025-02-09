@@ -1,13 +1,18 @@
-export interface Product {
-  id: string;
+import { IUser } from "./res.types";
+
+export interface IProduct {
+  _id: string;
   name: string;
-  description: string;
-  price: number;
   brand: string;
+  price: number;
   model: string;
   stock: number;
-  image: string;
   category: string;
+  imageURL: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export interface User {
@@ -18,20 +23,35 @@ export interface User {
   status: "active" | "inactive";
 }
 
-export interface Order {
-  id: string;
-  userId: string;
-  products: Array<{
-    productId: string;
-    quantity: number;
-  }>;
-  totalAmount: number;
-  status: "pending" | "processing" | "shipped" | "delivered";
+export interface ShippingAddress {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
+export interface IOrderItem {
+  productId: string | IProduct;
+  quantity: number;
+  price: number;
+  _id: string;
+}
+
+export interface IOrder {
+  shippingAddress: ShippingAddress;
+  _id: string;
+  userId: string | IUser;
+  items: IOrderItem[];
+  totalPrice: number;
+  status: "pending" | "cancelled" | "shipped" | "delivered";
+  paymentStatus: string;
   createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export interface CartItem {
-  product: Product;
+  product: IProduct;
   quantity: number;
 }
 

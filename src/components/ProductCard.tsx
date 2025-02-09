@@ -2,10 +2,10 @@ import { BsCart } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../store/slices/cartSlice";
-import { Product } from "../types";
+import { IProduct } from "../types";
 
 interface ProductCardProps {
-  product: Product;
+  product: IProduct;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {

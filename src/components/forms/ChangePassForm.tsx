@@ -2,29 +2,48 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import toast from "react-hot-toast";
+import { useChangePasswordMutation } from "../../store/api";
 import { changePassFormSchema } from "../../zodSchemas/commonSchema";
 import PasswordInput from "../reusableInputTags/PasswordInput";
 
 type ChangePassFormData = z.infer<typeof changePassFormSchema>;
 
 const ChangePassForm = () => {
+  const [changePassword] = useChangePasswordMutation();
   const {
     control,
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<ChangePassFormData>({
     resolver: zodResolver(changePassFormSchema),
     defaultValues: {
-      currentPassword: "000000",
-      newPassword: "111111",
-      confirmPassword: "111111",
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = (data: ChangePassFormData) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data: ChangePassFormData) => {
+    if (data.newPassword !== data.confirmPassword) {
+      toast.error("Passwords do not match", {
+        id: "password-mismatch",
+      });
+      return;
+    }
+    try {
+      const res = await changePassword({
+        currentPassword: data.currentPassword,
+        newPassword: data.newPassword,
+      }).unwrap();
+      reset();
+      toast.success(res.message);
+    } catch (error) {
+      toast.error("Failed to change password");
+    }
   };
 
   return (

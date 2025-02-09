@@ -1,12 +1,7 @@
-import { useSelector } from "react-redux";
-import { useGetOrdersQuery } from "../../store/api";
-import { selectCurrentUser } from "../../store/slices/authSlice";
+import { useGetMyOrdersQuery } from "../../store/api";
 
 const MyOrders = () => {
-  const { data: orders, isLoading } = useGetOrdersQuery();
-  const currentUser = useSelector(selectCurrentUser);
-
-  const myOrders = orders?.filter((order) => order.userId === currentUser?.id);
+  const { data: myOrders, isLoading } = useGetMyOrdersQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -35,9 +30,9 @@ const MyOrders = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {myOrders?.map((order) => (
-                <tr key={order.id}>
+                <tr key={order._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    #{order.id}
+                    #{order._id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -49,11 +44,11 @@ const MyOrders = () => {
                           : "bg-yellow-100 text-yellow-800"
                       }`}
                     >
-                      {order.status}
+                      {order?.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${order.totalAmount?.toFixed(2)}
+                    ${order.totalPrice?.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}
