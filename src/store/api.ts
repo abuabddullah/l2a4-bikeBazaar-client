@@ -49,27 +49,37 @@ export const api = createApi({
       },
       providesTags: ["Product"],
     }),
-    addProduct: builder.mutation<IProduct, Partial<IProduct>>({
-      query: (product) => ({
-        url: "/products",
-        method: "POST",
-        body: product,
-      }),
-      transformResponse: (response: IApiResType<IProduct>) => {
-        console.log({ response });
-        return response.data;
+    addProduct: builder.mutation({
+      query: (data) => {
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
+          formData.append(key, (data as any)[key]);
+        });
+
+        return {
+          url: "/products",
+          method: "POST",
+          body: formData,
+        };
       },
       invalidatesTags: ["Product"],
     }),
     updateProduct: builder.mutation<
       IProduct,
-      Partial<IProduct> & { id: string }
+      Partial<IProduct | any> & { id: string | undefined }
     >({
-      query: ({ id, ...product }) => ({
-        url: `/products/${id}`,
-        method: "PATCH",
-        body: product,
-      }),
+      query: ({ id, ...product }) => {
+        const formData = new FormData();
+        Object.keys(product).forEach((key) => {
+          formData.append(key, (product as any)[key]);
+        });
+        console.log({ formData });
+        return {
+          url: `/products/${id}`,
+          method: "PATCH",
+          body: product,
+        };
+      },
       transformResponse: (response: IApiResType<IProduct>) => {
         return response.data;
       },
@@ -81,6 +91,13 @@ export const api = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Product"],
+    }),
+    getProduct: builder.query<IProduct, string>({
+      query: (id) => `/products/${id}`,
+      transformResponse: (response: IApiResType<IProduct>) => {
+        return response.data;
+      },
+      providesTags: ["Product"],
     }),
 
     // Orders
@@ -148,6 +165,7 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetProductQuery,
   useGetOrdersQuery,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,

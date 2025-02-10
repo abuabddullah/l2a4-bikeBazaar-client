@@ -5,7 +5,7 @@ export interface IProduct {
   name: string;
   brand: string;
   price: number;
-  model: string;
+  productModel: string;
   stock: number;
   category: string;
   imageURL: string;

@@ -37,7 +37,6 @@ const AddProductForm = () => {
     console.log("Form Data:", data);
     try {
       const res = await addProduct(data).unwrap();
-      console.log({ res });
       reset();
       toast.success("Product added successfully", { id: "addProduct" });
     } catch (error) {
