@@ -16,7 +16,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["User", "Product", "Order", "Profile"],
+  tagTypes: ["Customer", "Product", "Order", "Profile"],
   endpoints: (builder) => ({
     // Users
     getUsers: builder.query<IUser[], void>({
@@ -24,7 +24,7 @@ export const api = createApi({
       transformResponse: (response: IApiResType<IUser[]>) => {
         return response.data;
       },
-      providesTags: ["User"],
+      providesTags: ["Customer"],
     }),
     updateUserStatus: builder.mutation<
       IApiResType<IUser>,
@@ -38,31 +38,49 @@ export const api = createApi({
       transformResponse: (response: IApiResType<IUser>) => {
         return response;
       },
-      invalidatesTags: ["User"], // প্রোফাইল রিফ্রেশ করার জন্য
+      invalidatesTags: ["Customer"], // প্রোফাইল রিফ্রেশ করার জন্য
     }),
 
     // Products
     getProducts: builder.query<IProduct[], void>({
-      queryFn: () => ({ data: dummyData.products }),
+      query: () => "/products",
+      transformResponse: (response: IApiResType<IProduct[]>) => {
+        return response.data;
+      },
+      providesTags: ["Product"],
     }),
     addProduct: builder.mutation<IProduct, Partial<IProduct>>({
-      queryFn: (product) => ({
-        data: {
-          id: String(dummyData.products.length + 1),
-          ...product,
-        } as IProduct,
+      query: (product) => ({
+        url: "/products",
+        method: "POST",
+        body: product,
       }),
+      transformResponse: (response: IApiResType<IProduct>) => {
+        console.log({ response });
+        return response.data;
+      },
+      invalidatesTags: ["Product"],
     }),
     updateProduct: builder.mutation<
       IProduct,
       Partial<IProduct> & { id: string }
     >({
-      queryFn: (product) => ({
-        data: product as IProduct,
+      query: ({ id, ...product }) => ({
+        url: `/products/${id}`,
+        method: "PATCH",
+        body: product,
       }),
+      transformResponse: (response: IApiResType<IProduct>) => {
+        return response.data;
+      },
+      invalidatesTags: ["Product"],
     }),
     deleteProduct: builder.mutation<void, string>({
-      queryFn: () => ({ data: undefined }),
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Product"],
     }),
 
     // Orders

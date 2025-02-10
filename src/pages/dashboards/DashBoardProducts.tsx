@@ -85,14 +85,14 @@ const DashBoardProducts = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {products?.map((product) => (
-                    <tr key={product.id}>
+                    <tr key={product._id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
                           <div className="text-sm font-medium text-gray-900">
-                            {product.name}
+                            {product?.name}
                           </div>
                           <div className="text-sm text-gray-500">
-                            {product.brand} - {product.model}
+                            {product?.brand} - {product?.model}
                           </div>
                         </div>
                       </td>
@@ -108,13 +108,13 @@ const DashBoardProducts = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button className="text-orange-500 hover:text-orange-900 mr-3">
                           <Link
-                            to={`/dashboard/admin/update-products/${product.id}`}
+                            to={`/dashboard/admin/update-products/${product._id}`}
                           >
                             <GoPencil className="h-4 w-4" />
                           </Link>
                         </button>
                         <button
-                          onClick={() => handleDelete(product.id)}
+                          onClick={() => handleDelete(product._id)}
                           className="text-red-600 hover:text-red-900"
                         >
                           <FiTrash className="h-4 w-4" />

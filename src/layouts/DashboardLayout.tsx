@@ -20,7 +20,7 @@ export const DashboardLayout: React.FC = () => {
       { name: "Dashboard", href: "/dashboard/admin", icon: LuLayoutDashboard },
       { name: "Products", href: "/dashboard/admin/products", icon: LuPackage },
       { name: "Orders", href: "/dashboard/admin/orders", icon: CgShoppingCart },
-      { name: "Users", href: "/dashboard/admin/users", icon: FiUsers },
+      { name: "Customers", href: "/dashboard/admin/users", icon: FiUsers },
       {
         name: "Settings",
         href: "/dashboard/admin/settings",
@@ -31,12 +31,12 @@ export const DashboardLayout: React.FC = () => {
     navigation = [
       {
         name: "My Orders",
-        href: "/dashboard/user/my-orders",
+        href: "/dashboard/customer/my-orders",
         icon: CgShoppingCart,
       },
       {
         name: "Settings",
-        href: "/dashboard/user/settings",
+        href: "/dashboard/customer/settings",
         icon: IoSettingsOutline,
       },
     ];

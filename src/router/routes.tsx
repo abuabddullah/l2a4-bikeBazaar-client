@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: (
-          <ProtectedRoute role="user">
+          <ProtectedRoute role="customer">
             <Cart />
           </ProtectedRoute>
         ),
@@ -101,9 +101,9 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard/user",
+    path: "/dashboard/customer",
     element: (
-      <ProtectedRoute role="user">
+      <ProtectedRoute role="customer">
         <DashboardLayout />
       </ProtectedRoute>
     ),
@@ -113,11 +113,11 @@ export const router = createBrowserRouter([
         element: <MyOrders />,
       },
       {
-        path: "/dashboard/user/my-orders",
+        path: "/dashboard/customer/my-orders",
         element: <MyOrders />,
       },
       {
-        path: "/dashboard/user/settings",
+        path: "/dashboard/customer/settings",
         element: <Settings />,
       },
     ],

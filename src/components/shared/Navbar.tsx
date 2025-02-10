@@ -33,7 +33,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                {user.role === "user" && (
+                {user.role === "customer" && (
                   <Link to="/cart" className="relative">
                     <CgShoppingCart className="h-6 w-6 text-white" />
                     {totalItems > 0 && (
@@ -48,8 +48,8 @@ export default function Navbar() {
                     <LuLayoutDashboard className="h-6 w-6 text-white" />
                   </Link>
                 )}
-                {user.role === "user" && (
-                  <Link to="/dashboard/user">
+                {user.role === "customer" && (
+                  <Link to="/dashboard/customer">
                     <LuLayoutDashboard className="h-6 w-6 text-white" />
                   </Link>
                 )}
