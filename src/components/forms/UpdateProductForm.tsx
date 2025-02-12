@@ -54,9 +54,22 @@ const UpdateProductForm = () => {
     }
   }, [product, reset]);
 
-  const onSubmit = (data: UpdateProductFormData) => {
+  const onSubmit = async (data: UpdateProductFormData) => {
     try {
-      const res = updateProduct({ id, ...data }).unwrap();
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (key === "image" && data.image instanceof File) {
+          formData.append(key, data.image);
+        } else {
+          formData.append(
+            key,
+            data[key as keyof UpdateProductFormData]?.toString() || ""
+          );
+        }
+      });
+
+      await updateProduct({ id, formData }).unwrap();
+      toast.success("Product updated successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to update product", { id: "updateProductError" });

@@ -34,7 +34,6 @@ const AddProductForm = () => {
   });
 
   const onSubmit = async (data: ProductFormData) => {
-    console.log("Form Data:", data);
     try {
       const res = await addProduct(data).unwrap();
       reset();

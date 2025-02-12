@@ -227,9 +227,9 @@ export default function Checkout() {
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
-                <div key={item.product.id} className="flex items-center gap-4">
+                <div key={item.product._id} className="flex items-center gap-4">
                   <img
-                    src={item.product.image}
+                    src={item.product.imageURL}
                     alt={item.product.name}
                     className="w-16 h-16 object-cover rounded"
                   />

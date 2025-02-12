@@ -18,7 +18,6 @@ export default function Navbar() {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
-  console.log({ user });
 
   return (
     <nav className="bg-orange-500 shadow-md relative overflow-hidden000">

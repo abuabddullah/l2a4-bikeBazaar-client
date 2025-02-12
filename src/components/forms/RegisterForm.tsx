@@ -45,7 +45,6 @@ const RegisterForm = () => {
       }
 
       const result = await response.json();
-      console.log({ result });
       toast.success("Registration successful", { id: "registration" });
 
       navigate("/login");

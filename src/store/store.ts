@@ -1,29 +1,9 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import cartReducer from "./slices/cartSlice";
-// import authReducer from "./slices/authSlice";
-// import { api } from "./api";
-
-// export const store = configureStore({
-//   reducer: {
-//     [api.reducerPath]: api.reducer,
-//     cart: cartReducer,
-//     auth: authReducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(api.middleware),
-// });
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
-
-/* new code */
-
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import cartReducer from "./slices/cartSlice";
-import authReducer from "./slices/authSlice";
-import { api } from "./api";
-import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
+import { api } from "./api";
+import authReducer from "./slices/authSlice";
+import cartReducer from "./slices/cartSlice";
 
 const persistConfig = {
   key: "root",

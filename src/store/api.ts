@@ -66,18 +66,13 @@ export const api = createApi({
     }),
     updateProduct: builder.mutation<
       IProduct,
-      Partial<IProduct | any> & { id: string | undefined }
+      { id: string | undefined; formData: FormData }
     >({
-      query: ({ id, ...product }) => {
-        const formData = new FormData();
-        Object.keys(product).forEach((key) => {
-          formData.append(key, (product as any)[key]);
-        });
-        console.log({ formData });
+      query: ({ id, formData }) => {
         return {
           url: `/products/${id}`,
           method: "PATCH",
-          body: product,
+          body: formData,
         };
       },
       transformResponse: (response: IApiResType<IProduct>) => {

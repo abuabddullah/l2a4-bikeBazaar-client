@@ -28,9 +28,6 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Login Data:", data);
-    // all login releted code এহানে হবে
-
     try {
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
@@ -48,7 +45,6 @@ const LoginForm = () => {
       }
 
       const result = await response.json();
-      console.log({ result });
       dispatch(login(result));
       navigate("/");
     } catch (error) {
