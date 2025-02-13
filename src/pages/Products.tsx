@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { LuFilter, LuSearch } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import productsData from "../data/products.json";
+import {
+  useGetBrandsQuery,
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+} from "../store/api";
+// import products from "../data/products.json";
 
 export default function Products() {
+  const { data: products } = useGetProductsQuery();
   const [searchParams] = useSearchParams();
   const categoryQueryParam = searchParams.get("category");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
@@ -17,10 +23,10 @@ export default function Products() {
     setSelectedCategories(categoryQueryParam ? [categoryQueryParam] : []);
   }, [categoryQueryParam]);
 
-  const categories = ["Mountain", "Road", "City"];
-  const brands = ["Trek", "Giant", "Specialized"];
+  const { data: categories } = useGetCategoriesQuery();
+  const { data: brands } = useGetBrandsQuery();
 
-  const filteredProducts = productsData.products.filter((product) => {
+  const filteredProducts = products?.filter((product) => {
     const matchesSearch = product.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -93,7 +99,7 @@ export default function Products() {
             {/* Categories */}
             <div className="mb-6">
               <h3 className="font-medium mb-2">Categories</h3>
-              {categories.map((category) => (
+              {categories?.map((category) => (
                 <label key={category} className="flex items-center gap-2 mb-2">
                   <input
                     type="checkbox"
@@ -120,7 +126,7 @@ export default function Products() {
             {/* Brands */}
             <div className="mb-6">
               <h3 className="font-medium mb-2">Brands</h3>
-              {brands.map((brand) => (
+              {brands?.map((brand) => (
                 <label key={brand} className="flex items-center gap-2 mb-2">
                   <input
                     type="checkbox"
@@ -147,7 +153,7 @@ export default function Products() {
         <div className="flex-1">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
             <p className="text-gray-600">
-              {filteredProducts.length} products found
+              {filteredProducts?.length} products found
             </p>
             <div className="flex items-center gap-2">
               <span className="text-gray-600">Sort by:</span>
@@ -164,8 +170,8 @@ export default function Products() {
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {filteredProducts?.map((product) => (
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>

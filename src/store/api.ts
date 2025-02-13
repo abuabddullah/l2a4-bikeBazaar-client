@@ -95,18 +95,32 @@ export const api = createApi({
       providesTags: ["Product"],
     }),
 
+    // Brands and Categories
+    getBrands: builder.query<string[], void>({
+      query: () => "/products/brands",
+      transformResponse: (response: IApiResType<string[]>) => {
+        return response.data;
+      },
+    }),
+    getCategories: builder.query<string[], void>({
+      query: () => "/products/categories",
+      transformResponse: (response: IApiResType<string[]>) => {
+        return response.data;
+      },
+    }),
+
     // Orders
     getOrders: builder.query<IOrder[], void>({
       query: () => "/orders/all-orders",
-      transformResponse: (response: IApiResType<IOrder[]>) => {
-        return response.data;
+      transformResponse: (response: IApiResType<IOrder[] | any>) => {
+        return response.data?.orders;
       },
       providesTags: ["Order"],
     }),
     getMyOrders: builder.query<IOrder[], void>({
       query: () => "/orders/my-orders",
-      transformResponse: (response: IApiResType<IOrder[]>) => {
-        return response.data;
+      transformResponse: (response: IApiResType<IOrder[] | any>) => {
+        return response.data?.orders;
       },
       providesTags: ["Order"],
     }),
@@ -161,6 +175,8 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useGetProductQuery,
+  useGetBrandsQuery,
+  useGetCategoriesQuery,
   useGetOrdersQuery,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,

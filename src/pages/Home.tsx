@@ -3,7 +3,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import productsData from "../data/products.json";
+import products from "../data/products.json";
+import { useGetCategoriesQuery, useGetProductsQuery } from "../store/api";
 
 const banners = [
   {
@@ -23,6 +24,8 @@ const banners = [
 ];
 
 export default function Home() {
+  const { data: products } = useGetProductsQuery();
+  const { data: categories } = useGetCategoriesQuery();
   const navigate = useNavigate();
   const [currentBanner, setCurrentBanner] = useState(0);
 
@@ -71,8 +74,8 @@ export default function Home() {
           Featured Products
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {productsData.products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {products?.slice(0, 3).map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>
@@ -84,7 +87,7 @@ export default function Home() {
             Shop by Category
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {["Mountain", "Road", "City"].map((category) => (
+            {categories?.map((category) => (
               <div
                 onClick={() => navigate(`/products?category=${category}`)}
                 key={category}

@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { LuRotateCcw } from "react-icons/lu";
-import { LuShield } from "react-icons/lu";
-import { FiTruck } from "react-icons/fi";
 import { BsCart } from "react-icons/bs";
+import { FiTruck } from "react-icons/fi";
+import { LuRotateCcw, LuShield } from "react-icons/lu";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
+import { useGetProductsQuery } from "../store/api";
 import { addToCart } from "../store/slices/cartSlice";
-import productsData from "../data/products.json";
 
 export default function ProductDetails() {
+  const { data: products } = useGetProductsQuery();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = productsData.products.find((p) => p.id === id);
+  const product = products?.find((p) => p._id === id);
 
   if (!product) {
     return (
@@ -50,7 +50,7 @@ export default function ProductDetails() {
         <div>
           <div className="bg-white p-8 rounded-lg shadow">
             <img
-              src={product.image}
+              src={product.imageURL}
               alt={product.name}
               className="w-full h-[500px] object-cover rounded-lg"
             />
@@ -69,7 +69,7 @@ export default function ProductDetails() {
                 Brand: {product.brand}
               </span>
               <span className="text-sm text-gray-500">
-                Model: {product.model}
+                Model: {product.productModel}
               </span>
             </div>
 
@@ -128,7 +128,7 @@ export default function ProductDetails() {
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 text-gray-600">Model</td>
-                  <td className="py-2 font-medium">{product.model}</td>
+                  <td className="py-2 font-medium">{product.productModel}</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 text-gray-600">Category</td>

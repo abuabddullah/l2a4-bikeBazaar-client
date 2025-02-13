@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import toast from "react-hot-toast";
-import { useAddProductMutation } from "../../store/api";
+import { useAddProductMutation, useGetCategoriesQuery } from "../../store/api";
 import { productSchema } from "../../zodSchemas/commonSchema";
 import FileInput from "../reusableInputTags/FileInput";
 import NumberInput from "../reusableInputTags/NumberInput";
@@ -15,6 +15,12 @@ type ProductFormData = z.infer<typeof productSchema>;
 
 const AddProductForm = () => {
   const [addProduct] = useAddProductMutation();
+  const { data: categories } = useGetCategoriesQuery();
+
+  const categoriesOptions = categories?.map((ctg: string) => {
+    const label = ctg.charAt(0).toUpperCase() + ctg.slice(1);
+    return { value: ctg, label: label };
+  });
   const {
     control,
     handleSubmit,
@@ -93,11 +99,13 @@ const AddProductForm = () => {
         name="category"
         control={control}
         label="Category"
-        options={[
-          { value: "city", label: "City" },
-          { value: "road", label: "Road" },
-          { value: "mountain", label: "Mountain" },
-        ]}
+        options={
+          categoriesOptions || [
+            { value: "city", label: "City" },
+            { value: "road", label: "Road" },
+            { value: "mountain", label: "Mountain" },
+          ]
+        }
         error={errors.category?.message}
       />
 

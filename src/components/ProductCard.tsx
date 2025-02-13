@@ -17,21 +17,21 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product._id}`}>
         <img
-          src={product.image}
+          src={product.imageURL}
           alt={product.name}
           className="w-full h-48 object-cover"
         />
       </Link>
       <div className="p-4">
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id}`}>
           <h3 className="text-lg font-semibold text-gray-800">
             {product.name}
           </h3>
         </Link>
         <p className="text-sm text-gray-600 mt-1">
-          {product.brand} - {product.model}
+          {product.brand} - {product.productModel}
         </p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-xl font-bold text-orange-500">

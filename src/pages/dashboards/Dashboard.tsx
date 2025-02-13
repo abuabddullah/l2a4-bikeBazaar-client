@@ -42,7 +42,7 @@ const Dashboard = () => {
     {
       icon: LuUsers,
       name: "Active Users",
-      value: 12,
+      value: users?.length || 12,
     },
   ];
 
@@ -147,9 +147,9 @@ const Dashboard = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {orders?.slice(0, 5).map((order) => (
-                <tr key={order.id}>
+                <tr key={order._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    #{order.id}
+                    #{order._id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -165,7 +165,7 @@ const Dashboard = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    ${order.totalAmount?.toFixed(2)}
+                    ${order.totalPrice?.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}

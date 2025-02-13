@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
-import { useGetProductQuery, useUpdateProductMutation } from "../../store/api";
+import {
+  useGetCategoriesQuery,
+  useGetProductQuery,
+  useUpdateProductMutation,
+} from "../../store/api";
 import { updateProductSchema } from "../../zodSchemas/commonSchema";
 import FileInput from "../reusableInputTags/FileInput";
 import NumberInput from "../reusableInputTags/NumberInput";
@@ -18,6 +22,11 @@ const UpdateProductForm = () => {
   const { id } = useParams<{ id: string }>();
   const { data: product, isLoading } = useGetProductQuery(id as string);
   const [updateProduct] = useUpdateProductMutation();
+  const { data: categories } = useGetCategoriesQuery();
+  const categoriesOptions = categories?.map((ctg: string) => {
+    const label = ctg.charAt(0).toUpperCase() + ctg.slice(1);
+    return { value: ctg, label: label };
+  });
 
   const {
     control,
@@ -140,11 +149,13 @@ const UpdateProductForm = () => {
         name="category"
         control={control}
         label="Category"
-        options={[
-          { value: "city", label: "City" },
-          { value: "road", label: "Road" },
-          { value: "mountain", label: "Mountain" },
-        ]}
+        options={
+          categoriesOptions || [
+            { value: "city", label: "City" },
+            { value: "road", label: "Road" },
+            { value: "mountain", label: "Mountain" },
+          ]
+        }
         error={errors.category?.message}
       />
 
