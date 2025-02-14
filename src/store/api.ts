@@ -145,6 +145,19 @@ export const api = createApi({
       }
     ),
 
+    // payment
+    createPayment: builder.mutation<{ paymentUrl: string }, string>({
+      query: (orderId) => ({
+        url: `/payments/initiate/${orderId}`,
+        method: "POST",
+      }),
+      transformResponse: (response: IApiResType<{ paymentUrl: string }>) => {
+        console.log("🚀 ~ response:", response.redirectGatewayURL);
+
+        return response.data;
+      },
+    }),
+
     // Profile
     getProfile: builder.query<IProfileResType, void>({
       query: () => "/users/profile",
@@ -183,6 +196,7 @@ export const {
   useGetOrdersQuery,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,
+  useCreatePaymentMutation,
   useGetProfileQuery,
   useChangePasswordMutation,
 } = api;

@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import {
+  useCreatePaymentMutation,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,
 } from "../../store/api";
@@ -7,6 +8,7 @@ import {
 const MyOrders = () => {
   const { data: myOrders, isLoading } = useGetMyOrdersQuery();
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
+  const [createPayment] = useCreatePaymentMutation();
 
   const handleStatusChange = async (id: string, status: string) => {
     try {
@@ -16,6 +18,19 @@ const MyOrders = () => {
       });
     } catch (error) {
       toast.error("Failed to update order status");
+    }
+  };
+
+  const handlePayment = async (orderId: string) => {
+    try {
+      const response = await createPayment(orderId).unwrap();
+      if (response?.GatewayPageURL) {
+        window.location.href = response.GatewayPageURL;
+      } else {
+        toast.error("Payment initiation failed");
+      }
+    } catch (error) {
+      toast.error("Error initiating payment");
     }
   };
 
@@ -82,9 +97,14 @@ const MyOrders = () => {
                       >
                         Cancel
                       </button>
-                      <button className="text-green-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm">
-                        Pay
-                      </button>
+                      {order?.status === "pending" && (
+                        <button
+                          onClick={() => handlePayment(order._id)}
+                          className="text-green-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                        >
+                          Pay Now
+                        </button>
+                      )}
                     </td>
                   )}
                 </tr>

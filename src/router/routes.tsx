@@ -15,6 +15,9 @@ import Settings from "../pages/dashboards/Settings";
 import Users from "../pages/dashboards/Users";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import PaymentCancelled from "../pages/payments/PaymentCancelled";
+import PaymentFailed from "../pages/payments/PaymentFailed";
+import PaymentSuccess from "../pages/payments/PaymentSuccess";
 import ProductDetails from "../pages/ProductDetails";
 import Products from "../pages/Products";
 import Register from "../pages/Register";
@@ -61,6 +64,30 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute role="customer">
             <Checkout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/payment/success",
+        element: (
+          <ProtectedRoute role="customer">
+            <PaymentSuccess />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/payment/failed",
+        element: (
+          <ProtectedRoute role="customer">
+            <PaymentFailed />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/payment/cancelled",
+        element: (
+          <ProtectedRoute role="customer">
+            <PaymentCancelled />
           </ProtectedRoute>
         ),
       },
