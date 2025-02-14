@@ -3,7 +3,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import products from "../data/products.json";
 import { useGetCategoriesQuery, useGetProductsQuery } from "../store/api";
 
 const banners = [
@@ -25,7 +24,10 @@ const banners = [
 
 export default function Home() {
   const { data: products } = useGetProductsQuery();
-  const { data: categories } = useGetCategoriesQuery();
+  let { data: categories } = useGetCategoriesQuery();
+  if (!categories?.length) {
+    categories = ["mountain", "city", "road"];
+  }
   const navigate = useNavigate();
   const [currentBanner, setCurrentBanner] = useState(0);
 

@@ -100,11 +100,13 @@ const AddProductForm = () => {
         control={control}
         label="Category"
         options={
-          categoriesOptions || [
-            { value: "city", label: "City" },
-            { value: "road", label: "Road" },
-            { value: "mountain", label: "Mountain" },
-          ]
+          categoriesOptions?.length
+            ? categoriesOptions
+            : [
+                { value: "city", label: "City" },
+                { value: "road", label: "Road" },
+                { value: "mountain", label: "Mountain" },
+              ]
         }
         error={errors.category?.message}
       />

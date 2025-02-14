@@ -23,7 +23,10 @@ export default function Products() {
     setSelectedCategories(categoryQueryParam ? [categoryQueryParam] : []);
   }, [categoryQueryParam]);
 
-  const { data: categories } = useGetCategoriesQuery();
+  let { data: categories } = useGetCategoriesQuery();
+  if (!categories?.length) {
+    categories = ["mountain", "city", "road"];
+  }
   const { data: brands } = useGetBrandsQuery();
 
   const filteredProducts = products?.filter((product) => {

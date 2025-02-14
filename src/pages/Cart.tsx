@@ -51,11 +51,11 @@ export default function Cart() {
           <div className="bg-white rounded-lg shadow">
             {cartItems.map((item) => (
               <div
-                key={item.product.id}
+                key={item.product._id}
                 className="flex items-center p-6 border-b last:border-b-0"
               >
                 <img
-                  src={item.product.image}
+                  src={item.product.imageURL}
                   alt={item.product.name}
                   className="w-24 h-24 object-cover rounded"
                 />
@@ -67,7 +67,7 @@ export default function Cart() {
                       <button
                         onClick={() =>
                           handleQuantityChange(
-                            item.product.id,
+                            item.product._id,
                             item.quantity - 1
                           )
                         }
@@ -79,7 +79,7 @@ export default function Cart() {
                       <button
                         onClick={() =>
                           handleQuantityChange(
-                            item.product.id,
+                            item.product._id,
                             item.quantity + 1
                           )
                         }
@@ -93,7 +93,7 @@ export default function Cart() {
                         ${item.product.price * item.quantity}
                       </span>
                       <button
-                        onClick={() => handleRemoveItem(item.product.id)}
+                        onClick={() => handleRemoveItem(item.product._id)}
                         className="text-red-500 hover:text-red-600"
                       >
                         <FiTrash2 className="h-5 w-5" />
