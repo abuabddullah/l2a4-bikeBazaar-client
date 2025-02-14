@@ -100,7 +100,7 @@ const AddProductForm = () => {
         control={control}
         label="Category"
         options={
-          categoriesOptions?.length
+          categoriesOptions?.length == 3
             ? categoriesOptions
             : [
                 { value: "city", label: "City" },

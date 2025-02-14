@@ -24,7 +24,7 @@ export default function Products() {
   }, [categoryQueryParam]);
 
   let { data: categories } = useGetCategoriesQuery();
-  if (!categories?.length) {
+  if (categories?.length !== 3) {
     categories = ["mountain", "city", "road"];
   }
   const { data: brands } = useGetBrandsQuery();

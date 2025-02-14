@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import dummyData from "../data/dummy.json";
 import type { IOrder, IProduct, IProfileResType } from "../types";
 import { IApiResType, IUser } from "../types/res.types";
 import { RootState } from "./store";
@@ -145,11 +144,6 @@ export const api = createApi({
         return response.data;
       },
     }),
-    updateProfile: builder.mutation<IProfileResType, Partial<IProfileResType>>({
-      queryFn: (profile) => ({
-        data: { ...dummyData.profile, ...profile },
-      }),
-    }),
     changePassword: builder.mutation<
       { success: boolean; message: string },
       { currentPassword: string; newPassword: string }
@@ -181,6 +175,5 @@ export const {
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,
   useGetProfileQuery,
-  useUpdateProfileMutation,
   useChangePasswordMutation,
 } = api;

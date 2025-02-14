@@ -2,15 +2,10 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ChangePassForm from "../../components/forms/ChangePassForm";
 import UpdateProfileForm from "../../components/forms/UpdateProfileForm";
-import {
-  useChangePasswordMutation,
-  useGetProfileQuery,
-  useUpdateProfileMutation,
-} from "../../store/api";
+import { useChangePasswordMutation, useGetProfileQuery } from "../../store/api";
 
 const Settings = () => {
   const { data: profile, isLoading } = useGetProfileQuery();
-  const [updateProfile] = useUpdateProfileMutation();
   const [changePassword] = useChangePasswordMutation();
 
   const [profileData, setProfileData] = useState({
@@ -32,16 +27,6 @@ const Settings = () => {
       });
     }
   }, [profile]);
-
-  const handleProfileSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await updateProfile(profileData).unwrap();
-      toast.success("Profile updated successfully");
-    } catch (error) {
-      toast.error("Failed to update profile");
-    }
-  };
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

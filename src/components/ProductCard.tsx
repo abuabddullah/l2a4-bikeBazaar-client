@@ -1,6 +1,8 @@
 import { BsCart } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../store/hooks";
+import { selectCurrentUser } from "../store/slices/authSlice";
 import { addToCart } from "../store/slices/cartSlice";
 import { IProduct } from "../types";
 
@@ -10,6 +12,8 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const dispatch = useDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product, quantity: 1 }));
@@ -38,7 +42,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             ${product.price}
           </span>
           <button
-            onClick={handleAddToCart}
+            onClick={
+              user?.role === "customer"
+                ? handleAddToCart
+                : () => navigate("/login")
+            }
             className="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-orange-600 transition"
           >
             <BsCart className="h-5 w-5" />

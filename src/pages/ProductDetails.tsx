@@ -2,13 +2,17 @@ import { BsCart } from "react-icons/bs";
 import { FiTruck } from "react-icons/fi";
 import { LuRotateCcw, LuShield } from "react-icons/lu";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useGetProductsQuery } from "../store/api";
+import { useAppSelector } from "../store/hooks";
+import { selectCurrentUser } from "../store/slices/authSlice";
 import { addToCart } from "../store/slices/cartSlice";
 
 export default function ProductDetails() {
   const { data: products } = useGetProductsQuery();
+  const user = useAppSelector(selectCurrentUser);
+  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = products?.find((p) => p._id === id);
@@ -92,7 +96,11 @@ export default function ProductDetails() {
             </div>
 
             <button
-              onClick={handleAddToCart}
+              onClick={
+                user?.role === "customer"
+                  ? handleAddToCart
+                  : () => navigate("/login")
+              }
               disabled={product.stock === 0}
               className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed mb-8 flex items-center justify-center gap-2"
             >

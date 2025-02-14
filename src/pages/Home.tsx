@@ -25,7 +25,7 @@ const banners = [
 export default function Home() {
   const { data: products } = useGetProductsQuery();
   let { data: categories } = useGetCategoriesQuery();
-  if (!categories?.length) {
+  if (categories?.length !== 3) {
     categories = ["mountain", "city", "road"];
   }
   const navigate = useNavigate();
