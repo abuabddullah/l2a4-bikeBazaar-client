@@ -109,6 +109,14 @@ export const api = createApi({
     }),
 
     // Orders
+    createOrder: builder.mutation({
+      query: (orderData) => ({
+        url: "/orders",
+        method: "POST",
+        body: orderData,
+      }),
+      invalidatesTags: ["Order"],
+    }),
     getOrders: builder.query<IOrder[], void>({
       query: () => "/orders/all-orders",
       transformResponse: (response: IApiResType<IOrder[] | any>) => {
@@ -119,7 +127,7 @@ export const api = createApi({
     getMyOrders: builder.query<IOrder[], void>({
       query: () => "/orders/my-orders",
       transformResponse: (response: IApiResType<IOrder[] | any>) => {
-        return response.data?.orders;
+        return response.data;
       },
       providesTags: ["Order"],
     }),
@@ -171,6 +179,7 @@ export const {
   useGetProductQuery,
   useGetBrandsQuery,
   useGetCategoriesQuery,
+  useCreateOrderMutation,
   useGetOrdersQuery,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,

@@ -1,7 +1,23 @@
-import { useGetMyOrdersQuery } from "../../store/api";
+import toast from "react-hot-toast";
+import {
+  useGetMyOrdersQuery,
+  useUpdateOrderStatusMutation,
+} from "../../store/api";
 
 const MyOrders = () => {
   const { data: myOrders, isLoading } = useGetMyOrdersQuery();
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+
+  const handleStatusChange = async (id: string, status: string) => {
+    try {
+      await updateOrderStatus({ id, status }).unwrap();
+      toast.success("Order status updated successfully", {
+        id: "order-status",
+      });
+    } catch (error) {
+      toast.error("Failed to update order status");
+    }
+  };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -25,6 +41,9 @@ const MyOrders = () => {
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Date
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -53,6 +72,21 @@ const MyOrders = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
+                  {order?.status !== "cancelled" && (
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <button
+                        onClick={() =>
+                          handleStatusChange(order._id, "cancelled")
+                        }
+                        className="text-orange-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                      >
+                        Cancel
+                      </button>
+                      <button className="text-green-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm">
+                        Pay
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
