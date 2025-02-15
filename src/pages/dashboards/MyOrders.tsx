@@ -49,7 +49,10 @@ const MyOrders = () => {
                   Order ID
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
+                  Dispatch Status
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Payment Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Total
@@ -81,32 +84,46 @@ const MyOrders = () => {
                       {order?.status}
                     </span>
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        order.paymentStatus === "pending"
+                          ? "bg-green-100 text-green-800"
+                          : order.paymentStatus === "completed"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-yellow-100 text-yellow-800"
+                      }`}
+                    >
+                      {order?.paymentStatus}
+                    </span>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     ${order.totalPrice?.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
-                  {order?.status !== "cancelled" && (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <button
-                        onClick={() =>
-                          handleStatusChange(order._id, "cancelled")
-                        }
-                        className="text-orange-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
-                      >
-                        Cancel
-                      </button>
-                      {order?.status === "pending" && (
+                  {order?.status !== "cancelled" &&
+                    order?.paymentStatus !== "completed" && (
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <button
-                          onClick={() => handlePayment(order._id)}
-                          className="text-green-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                          onClick={() =>
+                            handleStatusChange(order._id, "cancelled")
+                          }
+                          className="text-orange-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
                         >
-                          Pay Now
+                          Cancel
                         </button>
-                      )}
-                    </td>
-                  )}
+                        {order?.status === "pending" && (
+                          <button
+                            onClick={() => handlePayment(order._id)}
+                            className="text-green-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm"
+                          >
+                            Pay Now
+                          </button>
+                        )}
+                      </td>
+                    )}
                 </tr>
               ))}
             </tbody>

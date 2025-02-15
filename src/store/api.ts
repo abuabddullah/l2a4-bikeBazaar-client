@@ -146,14 +146,12 @@ export const api = createApi({
     ),
 
     // payment
-    createPayment: builder.mutation<{ paymentUrl: string }, string>({
+    createPayment: builder.mutation<any, string>({
       query: (orderId) => ({
         url: `/payments/initiate/${orderId}`,
         method: "POST",
       }),
-      transformResponse: (response: IApiResType<{ paymentUrl: string }>) => {
-        console.log("🚀 ~ response:", response.redirectGatewayURL);
-
+      transformResponse: (response: IApiResType<any>) => {
         return response.data;
       },
     }),
