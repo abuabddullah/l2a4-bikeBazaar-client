@@ -58,23 +58,16 @@ Follow these steps to set up the **BikesBaazaar** frontend locally.
    npm install
    ```
 
-3. **Set Up Environment Variables**:
-   Create a `.env` file in the root directory and add the following variables:
-
-   ```env
-   REACT_APP_API_URL=https://bikebazaar-server.onrender.com
-   ```
-
-4. **Run the Frontend**:
+3. **Run the Frontend**:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-5. **Access the Application**:
+4. **Access the Application**:
    Open your browser and navigate to:
    ```
-   http://localhost:3000
+   http://localhost:5173/
    ```
 
 ---
@@ -83,17 +76,17 @@ Follow these steps to set up the **BikesBaazaar** frontend locally.
 
 ### Frontend
 
-- **Live Site**: [https://bikesbazaar.netlify.app/](https://bikesbazaar.netlify.app/)
+- **Live Site**: [https://bikebazaar-client.vercel.app/](https://bikebazaar-client.vercel.app/)
 - **GitHub Repository**: [https://github.com/abuabddullah/l2a4-bikeBazaar-client.git](https://github.com/abuabddullah/l2a4-bikeBazaar-client.git)
 
 ### Backend
 
-- **Live API**: [https://bikebazaar-server.onrender.com](https://bikebazaar-server.onrender.com)
+- **Live API**: [https://l2a4-bike-bazaar-server.vercel.app/](https://l2a4-bike-bazaar-server.vercel.app/)
 - **GitHub Repository**: [https://github.com/abuabddullah/l2a4-bikeBazaar-server.git](https://github.com/abuabddullah/l2a4-bikeBazaar-server.git)
 
 ### Project Overview Video
 
-- [Watch the Project Overview](https://drive.google.com/file/d/1Rx3d0yBhmN9rIEL6D6euMFaoVkzLen3W/view?usp=sharing)
+- [Watch the Project Overview](https://drive.google.com/file/d/18q4ZYZrRhcKsxuWYKtAcDY4OxCcWIZ3e/view?usp=sharing)
 
 ---
 
