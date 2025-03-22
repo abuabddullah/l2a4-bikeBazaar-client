@@ -7,12 +7,13 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from "../store/api";
-// import products from "../data/products.json";
 
 export default function Products() {
   const { data: products } = useGetProductsQuery();
   const [searchParams] = useSearchParams();
   const categoryQueryParam = searchParams.get("category");
+  const brandQueryParam = searchParams.get("brand"); // ✅ ব্র্যান্ড কুয়েরি যোগ করা হয়েছে
+
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -21,7 +22,8 @@ export default function Products() {
 
   useEffect(() => {
     setSelectedCategories(categoryQueryParam ? [categoryQueryParam] : []);
-  }, [categoryQueryParam]);
+    setSelectedBrands(brandQueryParam ? [brandQueryParam] : []);
+  }, [categoryQueryParam, brandQueryParam]);
 
   let { data: categories } = useGetCategoriesQuery();
   if (categories?.length !== 3) {

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { logout, selectUserToken } from "../../store/slices/authSlice";
+import { selectUserToken } from "../../store/slices/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 
 type TProtectedRoute = {
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const dispatch = useAppDispatch();
 
   if (role !== undefined && role !== decodedUser?.role) {
-    dispatch(logout());
+    // dispatch(logout());
     return <Navigate to="/login" replace={true} />;
   }
   if (!token) {

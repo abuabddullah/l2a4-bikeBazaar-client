@@ -6,7 +6,7 @@ import { RootState } from "./store";
 // Using dummy data instead of actual API calls for design only
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://l2a4-bike-bazaar-server.vercel.app/api",
+    baseUrl: "http://localhost:5000/api",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) {

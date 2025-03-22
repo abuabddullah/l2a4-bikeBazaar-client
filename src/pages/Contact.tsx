@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { FaRegClock } from "react-icons/fa6";
 import { FiMapPin, FiPhone } from "react-icons/fi";
 import { IoMailOutline } from "react-icons/io5";
@@ -6,6 +7,13 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // এখানে মেইল কয়ারা সিস্টেম করব পরে
+
+    // Reset the form
+    const form = e.target as HTMLFormElement;
+    form.reset();
+
+    // Show toast message
+    toast.success("Thanks! We will connect with you later.");
   };
 
   return (

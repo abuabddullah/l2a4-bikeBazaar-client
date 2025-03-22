@@ -3,7 +3,20 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { useGetCategoriesQuery, useGetProductsQuery } from "../store/api";
+import {
+  useGetBrandsQuery,
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+} from "../store/api";
+import OurPartners from "../components/homepage/OurPartners";
+import StaticBanner from "../components/homepage/StaticBanner";
+import FAQ from "../components/homepage/FAQ";
+import BannerCarousel from "../components/homepage/BannerCarousel";
+import NewsLetter from "../components/homepage/NewsLetter";
+import Carousel3d from "../components/homepage/Carousel3d";
+import OfferedProducts from "../components/homepage/OfferedProducts";
+import CompareProduct from "../components/homepage/CompareProduct";
+import HeadLine from "../components/shared/HeadLine";
 
 const banners = [
   {
@@ -25,6 +38,7 @@ const banners = [
 export default function Home() {
   const { data: products } = useGetProductsQuery();
   let { data: categories } = useGetCategoriesQuery();
+  let { data: brands } = useGetBrandsQuery();
   if (categories?.length !== 3) {
     categories = ["mountain", "city", "road"];
   }
@@ -41,53 +55,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Banner */}
-      <div className="relative h-[350px]">
-        <img
-          src={banners[currentBanner].image}
-          alt={banners[currentBanner].title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-5xl font-bold mb-4">
-              {banners[currentBanner].title}
-            </h1>
-            <p className="text-xl">{banners[currentBanner].subtitle}</p>
-          </div>
-        </div>
-        <button
-          onClick={prevBanner}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full"
-        >
-          <FaChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={nextBanner}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full"
-        >
-          <FaChevronRight className="h-6 w-6" />
-        </button>
-      </div>
+      {/* static banner */}
+      <StaticBanner />
 
       {/* Featured Products */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">
-          Featured Products
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products?.slice(0, 3).map((product) => (
+        <div className="text-center">
+          <HeadLine heading="Featured Products" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {products?.slice(0, 4).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>
 
+      {/* Hero Banner */}
+      <BannerCarousel />
+
       {/* Categories */}
       <div className="bg-white py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">
-            Shop by Category
-          </h2>
+          <div className="text-center">
+            <HeadLine heading="Shop By Category" />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {categories?.map((category) => (
               <div
@@ -97,18 +88,18 @@ export default function Home() {
               >
                 <img
                   src={`https://images.unsplash.com/photo-${
-                    category === "Mountain"
-                      ? "1576435728678-68d0fbf94e91"
-                      : category === "Road"
-                      ? "1532298229144-0ec0c57515c7"
-                      : "1485965120184-e220f721d03e"
+                    category === "mountain"
+                      ? "1574117482334-14b040604998"
+                      : category === "road"
+                      ? "1621344581466-20e6fe271d61"
+                      : "1602878558403-25ae1c9f171c"
                   }?w=800`}
                   alt={category}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                   <h3 className="text-2xl font-bold text-white">
-                    {category} Bikes
+                    {category.charAt(0).toUpperCase() + category.slice(1)} Bikes
                   </h3>
                 </div>
               </div>
@@ -116,6 +107,40 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <CompareProduct />
+      <NewsLetter />
+      {/* bands */}
+      <div className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center">
+            <HeadLine heading="Shop By Brand" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {brands?.map((brand) => (
+              <div
+                onClick={() => navigate(`/products?brand=${brand}`)}
+                key={brand}
+                className="relative h-64 rounded-lg overflow-hidden cursor-pointer"
+              >
+                <img
+                  src={`https://res.cloudinary.com/dglsw3gml/image/upload/v1742613048/bicycle-shop/bike_brnd_dlw7vs.jpg`}
+                  alt={brand}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white">
+                    {brand.charAt(0).toUpperCase() + brand.slice(1)} Bikes
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <OfferedProducts />
+      <OurPartners />
+      <FAQ />
     </div>
   );
 }

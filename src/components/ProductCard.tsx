@@ -8,9 +8,10 @@ import { IProduct } from "../types";
 
 interface ProductCardProps {
   product: IProduct;
+  isOffered?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, isOffered }: ProductCardProps) {
   const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
@@ -38,9 +39,16 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.brand} - {product.productModel}
         </p>
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-xl font-bold text-orange-500">
-            ${product.price}
-          </span>
+          <div className="flex flex-col items-center justify-between">
+            {isOffered && (
+              <span className="text-xl font-bold text-orange-500 line-through">
+                ${product.price * 1.5}
+              </span>
+            )}
+            <span className="text-xl font-bold text-orange-500">
+              ${product.price}
+            </span>
+          </div>
           <button
             onClick={
               user?.role === "customer"

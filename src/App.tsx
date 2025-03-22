@@ -9,7 +9,7 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={router} />
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
       </PersistGate>
     </Provider>
   );
