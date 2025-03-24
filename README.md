@@ -100,3 +100,9 @@ Asif A Owadud
 
 - backend
 - - <span style="color: red;">**\_querybuilder for getting allcollection**</span>
+- l2a4-bikeBazaar-client\src\store\api.ts
+- l2a4-bikeBazaar-client\src\components\product\ReviewManagement.tsx
+- l2a4-bikeBazaar-client\src\components\homepage\NewsLetter.tsx
+- l2a4-bikeBazaar-client\src\components\forms\UpdateProfileForm.tsx
+- l2a4-bikeBazaar-client\src\components\forms\RegisterForm.tsx
+- l2a4-bikeBazaar-client\src\components\forms\LoginForm.tsx

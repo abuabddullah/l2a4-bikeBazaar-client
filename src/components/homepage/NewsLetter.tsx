@@ -18,7 +18,7 @@ const NewsLetter: React.FC = () => {
     try {
       // Make the API call to subscribe the email
       const response = await fetch(
-        "http://localhost:5000/api/newsletter/subscribe",
+        "https://l2a4-bike-bazaar-server.vercel.app/api/newsletter/subscribe",
         {
           method: "POST",
           headers: {

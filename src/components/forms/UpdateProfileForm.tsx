@@ -38,14 +38,17 @@ const UpdateProfileForm = () => {
   const onSubmit = async (data: UpdateProfileFormData) => {
     console.log("Form Data:", data);
     try {
-      const response = await fetch("http://localhost:5000/api/users/profile", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://l2a4-bike-bazaar-server.vercel.app/api/users/profile",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         toast.error("Failed to update profile", {

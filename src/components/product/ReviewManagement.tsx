@@ -34,7 +34,7 @@ const ReviewManagement = ({ productId }: { productId: string }) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/reviews/${productId}`
+          `https://l2a4-bike-bazaar-server.vercel.app/api/reviews/${productId}`
         );
         const data = await response.json();
         setState((prevState) => ({
@@ -82,19 +82,22 @@ const ReviewManagement = ({ productId }: { productId: string }) => {
     }));
 
     try {
-      const response = await fetch("http://localhost:5000/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          productId,
-          rating: state.rating,
-          review: state.review,
-        }),
-      });
+      const response = await fetch(
+        "https://l2a4-bike-bazaar-server.vercel.app/api/reviews",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            userId: user._id,
+            productId,
+            rating: state.rating,
+            review: state.review,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
