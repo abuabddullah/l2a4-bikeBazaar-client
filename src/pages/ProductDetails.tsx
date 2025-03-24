@@ -4,18 +4,19 @@ import { LuRotateCcw, LuShield } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetProductsQuery } from "../store/api";
+import ReviewManagement from "../components/product/ReviewManagement";
+import SuggestedProducts from "../components/product/SuggestedProducts";
+import { useGetProductQuery } from "../store/api";
 import { useAppSelector } from "../store/hooks";
 import { selectCurrentUser } from "../store/slices/authSlice";
 import { addToCart } from "../store/slices/cartSlice";
 
 export default function ProductDetails() {
-  const { data: products } = useGetProductsQuery();
+  const { id } = useParams();
+  const { data: product } = useGetProductQuery(id!);
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const { id } = useParams();
   const dispatch = useDispatch();
-  const product = products?.find((p) => p._id === id);
 
   if (!product) {
     return (
@@ -156,6 +157,9 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
+
+      <ReviewManagement productId={id!} />
+      <SuggestedProducts product={product} />
     </div>
   );
 }

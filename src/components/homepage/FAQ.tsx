@@ -38,7 +38,10 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="w-full px-4 py-16 bg-gradient-to-r from-yellow-500 via-red-500 to-orange-600 bg-opacity-80 bg-pattern-stripes">
+    <div
+      className="w-full px-4 py-16 bg-gradient-to-r from-yellow-500 via-red-500 to-orange-600 bg-opacity-80 bg-pattern-stripes"
+      id="faq"
+    >
       <div className="mx-auto w-full max-w-3xl rounded-2xl bg-white p-8 shadow-lg shadow-teal-400/30">
         <div className="text-center">
           <HeadLine heading="FAQs" />

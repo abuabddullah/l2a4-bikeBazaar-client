@@ -14,6 +14,9 @@ export interface IUser {
   email: string;
   password?: string;
   status?: string;
+  avatar?: string | undefined;
+  address?: string | undefined;
+  phone?: string | undefined;
   role: string;
   _id: string;
   createdAt: string;

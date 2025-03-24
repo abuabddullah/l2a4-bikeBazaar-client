@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { LuFilter, LuSearch } from "react-icons/lu";
+import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/product/ProductCard";
+import SkeletonProductCard from "../components/shared/SkeletonProductCard";
 import {
   useGetBrandsQuery,
   useGetCategoriesQuery,
@@ -9,10 +11,10 @@ import {
 } from "../store/api";
 
 export default function Products() {
-  const { data: products } = useGetProductsQuery();
+  const { data: products, isLoading } = useGetProductsQuery();
   const [searchParams] = useSearchParams();
   const categoryQueryParam = searchParams.get("category");
-  const brandQueryParam = searchParams.get("brand"); // ✅ ব্র্যান্ড কুয়েরি যোগ করা হয়েছে
+  const brandQueryParam = searchParams.get("brand");
 
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -46,6 +48,12 @@ export default function Products() {
     return matchesSearch && matchesPrice && matchesCategory && matchesBrand;
   });
 
+  /* pagination feature */
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 6;
+  const pageCount = Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
+  const offset = currentPage * itemsPerPage;
+  const currentItems = filteredProducts?.slice(offset, offset + itemsPerPage);
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex flex-col lg:flex-row gap-8">
@@ -160,7 +168,7 @@ export default function Products() {
             <p className="text-gray-600">
               {filteredProducts?.length} products found
             </p>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <span className="text-gray-600">Sort by:</span>
               <select
                 value={sortBy}
@@ -172,12 +180,32 @@ export default function Products() {
                 <option value="price-high">Price: High to Low</option>
                 <option value="newest">Newest</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts?.map((product) => (
+            {isLoading &&
+              [...Array(6)].map((_, index) => (
+                <SkeletonProductCard key={index} />
+              ))}
+            {currentItems?.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <ReactPaginate
+              previousLabel={"←"}
+              nextLabel={"→"}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              onPageChange={({ selected }) => setCurrentPage(selected)}
+              containerClassName="flex gap-2"
+              pageClassName="px-3 py-2 border rounded cursor-pointer"
+              activeClassName="bg-orange-600 text-white"
+              previousClassName="px-3 py-2 border rounded cursor-pointer"
+              nextClassName="px-3 py-2 border rounded cursor-pointer"
+              disabledClassName="opacity-50 cursor-not-allowed"
+            />
           </div>
         </div>
       </div>

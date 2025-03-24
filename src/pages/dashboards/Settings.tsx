@@ -11,6 +11,7 @@ const Settings = () => {
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
+    avatar: "",
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -23,6 +24,7 @@ const Settings = () => {
     if (profile) {
       setProfileData({
         name: profile.name,
+        avatar: profile.avatar ?? "",
         email: profile.email,
       });
     }

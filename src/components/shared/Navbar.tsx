@@ -11,6 +11,7 @@ import { logout, selectCurrentUser } from "../../store/slices/authSlice";
 import { RootState } from "../../store/store";
 import logo from "./../../assets/images/logo.png";
 import { MobileMenus, TabMenues } from "./NavMenus";
+import LogOutDropdown from "./LogOutDropdown";
 
 export default function Navbar() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -55,9 +56,7 @@ export default function Navbar() {
                     <LuLayoutDashboard className="h-6 w-6 text-white" />
                   </Link>
                 )}
-                <button title="Logout" onClick={() => dispatch(logout())}>
-                  <AiOutlineLogout className="h-6 w-6 text-white" />
-                </button>
+                <LogOutDropdown user={user} />
               </>
             ) : (
               <>

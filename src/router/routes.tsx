@@ -21,6 +21,7 @@ import PaymentSuccess from "../pages/payments/PaymentSuccess";
 import ProductDetails from "../pages/ProductDetails";
 import Products from "../pages/Products";
 import Register from "../pages/Register";
+import Profile from "../pages/dashboards/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
+        path: "/dashboard/admin/profile",
+        element: <Profile />,
+      },
+      {
         path: "/dashboard/admin/products",
         element: <DashBoardProducts />,
       },
@@ -141,7 +146,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MyOrders />,
+        element: <Profile />,
+      },
+      {
+        path: "/dashboard/customer/profile",
+        element: <Profile />,
       },
       {
         path: "/dashboard/customer/my-orders",

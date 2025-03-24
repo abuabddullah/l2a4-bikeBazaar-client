@@ -7,6 +7,8 @@ export interface IProduct {
   price: number;
   productModel: string;
   stock: number;
+  totalReviews?: number;
+  averageRating?: number;
   category: string;
   imageURL: string;
   description: string;
@@ -58,9 +60,29 @@ export interface CartItem {
 export interface IProfileResType {
   _id: string;
   name: string;
+  status?: string;
   email: string;
+  avatar?: string | undefined;
+  address?: string | undefined;
+  phone?: string | undefined;
   role: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export interface IReview {
+  _id?: string;
+  userId?: IReviewUserId;
+  productId: string;
+  rating: number;
+  review: string;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+}
+
+export interface IReviewUserId {
+  _id: string;
+  name: string;
 }

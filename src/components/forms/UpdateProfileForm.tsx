@@ -4,12 +4,16 @@ import { z } from "zod";
 
 import toast from "react-hot-toast";
 import { useGetProfileQuery } from "../../store/api";
+import { useAppSelector } from "../../store/hooks";
+import { selectUserToken } from "../../store/slices/authSlice";
 import { updateProfileSchema } from "../../zodSchemas/commonSchema";
 import TextInput from "../reusableInputTags/TextInput";
+import TextareaInput from "../reusableInputTags/TextareaInput";
 
 type UpdateProfileFormData = z.infer<typeof updateProfileSchema>;
 
 const UpdateProfileForm = () => {
+  const token = useAppSelector(selectUserToken);
   const { data: profile, isLoading } = useGetProfileQuery(undefined);
 
   const {
@@ -22,15 +26,48 @@ const UpdateProfileForm = () => {
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
       name: profile?.name || "asif",
+      avatar:
+        profile?.avatar ||
+        "https://res.cloudinary.com/dglsw3gml/image/upload/v1742799359/bicycle-shop/avatar_jrnud5.jpg",
+      phone: profile?.phone || "01700000000",
+      address: profile?.address || "Dhaka, Bangladesh",
       email: profile?.email || "asif@asif.asif",
     },
   });
 
-  const onSubmit = (data: UpdateProfileFormData) => {
+  const onSubmit = async (data: UpdateProfileFormData) => {
     console.log("Form Data:", data);
-    toast.error("Profile Updated feature not enabled yet", {
-      id: "profile-update",
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/users/profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        toast.error("Failed to update profile", {
+          id: "profile-update",
+        });
+        throw new Error("Failed to update profile");
+      }
+      const resData = await response.json();
+      console.log("🚀 ~ onSubmit ~ resData", resData);
+      toast.success("Profile updated successfully", {
+        id: "profile-update",
+      });
+      if (profile?.role === "customer") {
+        window.location.href = "/dashboard/customer";
+      } else if (profile?.role === "admin") {
+        window.location.href = "/dashboard/admin/profile";
+      }
+    } catch (error) {
+      toast.error("Failed to update profile", {
+        id: "profile-update",
+      });
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -53,6 +90,28 @@ const UpdateProfileForm = () => {
         label="Email"
         placeholder="Enter email"
         error={errors.email?.message}
+      />
+
+      {/* User Avatar */}
+      <TextInput
+        name="avatar"
+        control={control}
+        label="avatar"
+        placeholder="Enter Avatar Url"
+        error={errors.avatar?.message}
+      />
+      <TextInput
+        name="phone"
+        control={control}
+        label="Phone"
+        placeholder="Enter phone"
+        error={errors.phone?.message}
+      />
+      <TextareaInput
+        name="address"
+        control={control}
+        label="Sddress"
+        placeholder="Enter address"
       />
       {/* Submit Button */}
       <button

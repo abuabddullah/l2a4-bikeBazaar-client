@@ -1,10 +1,11 @@
 import { BsCart } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../store/hooks";
-import { selectCurrentUser } from "../store/slices/authSlice";
-import { addToCart } from "../store/slices/cartSlice";
-import { IProduct } from "../types";
+import { IProduct } from "../../types";
+import { useAppSelector } from "../../store/hooks";
+import { selectCurrentUser } from "../../store/slices/authSlice";
+import { addToCart } from "../../store/slices/cartSlice";
+import { StarIcon } from "lucide-react";
 
 interface ProductCardProps {
   product: IProduct;
@@ -30,14 +31,30 @@ export default function ProductCard({ product, isOffered }: ProductCardProps) {
         />
       </Link>
       <div className="p-4">
-        <Link to={`/product/${product._id}`}>
-          <h3 className="text-lg font-semibold text-gray-800">
-            {product.name}
-          </h3>
-        </Link>
-        <p className="text-sm text-gray-600 mt-1">
-          {product.brand} - {product.productModel}
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <Link to={`/product/${product._id}`}>
+              <h3 className="text-lg font-semibold text-gray-800">
+                {product.name}
+              </h3>
+            </Link>
+            <p className="text-sm text-gray-600 mt-1">
+              {product.brand} - {product.productModel}
+            </p>
+          </div>
+          <div className="text-orange-500 flex items-center  mt-2">
+            {[...Array(5)].map((_, index) => (
+              <StarIcon
+                key={index}
+                className={`h-4 w-4 ${
+                  index < Math.floor(product?.averageRating || 0)
+                    ? "text-orange-500 fill-orange-300"
+                    : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
         <div className="mt-4 flex items-center justify-between">
           <div className="flex flex-col items-center justify-between">
             {isOffered && (

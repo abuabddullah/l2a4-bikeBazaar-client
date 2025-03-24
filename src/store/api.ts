@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { IOrder, IProduct, IProfileResType } from "../types";
+import type { IOrder, IProduct, IProfileResType, IReview } from "../types";
 import { IApiResType, IUser } from "../types/res.types";
 import { RootState } from "./store";
 
@@ -160,6 +160,7 @@ export const api = createApi({
     getProfile: builder.query<IProfileResType, void>({
       query: () => "/users/profile",
       transformResponse: (response: IApiResType<IProfileResType>) => {
+        console.log("🚀 ~ response api getprofile:", response);
         return response.data;
       },
     }),
@@ -176,6 +177,52 @@ export const api = createApi({
         return response;
       },
       invalidatesTags: ["Profile"], // প্রোফাইল রিফ্রেশ করার জন্য
+    }),
+
+    // review
+    getReviews: builder.query<
+      { reviews: IReview[]; averageRating: number; totalReviews: number },
+      { productId: string }
+    >({
+      query: ({ productId }) => `/reviews/${productId}`,
+      transformResponse: (
+        response: IApiResType<{
+          reviews: IReview[];
+          averageRating: number;
+          totalReviews: number;
+        }>
+      ) => {
+        console.log(response);
+        return response.data;
+      },
+    }),
+    addReview: builder.mutation<
+      {
+        message: string;
+        review: IReview;
+        averageRating: number;
+        totalReviews: number;
+      },
+      {
+        userId: string;
+        productId: string;
+        rating: number;
+        review: string;
+      }
+    >({
+      query: (reviewData) => ({
+        url: "/reviews",
+        method: "POST",
+        body: reviewData,
+      }),
+      transformResponse: (
+        response: IApiResType<{
+          message: string;
+          review: IReview;
+          averageRating: number;
+          totalReviews: number;
+        }>
+      ) => response.data, // Extract only the required data
     }),
   }),
 });
@@ -197,4 +244,6 @@ export const {
   useCreatePaymentMutation,
   useGetProfileQuery,
   useChangePasswordMutation,
+  useGetReviewsQuery,
+  useAddReviewMutation,
 } = api;

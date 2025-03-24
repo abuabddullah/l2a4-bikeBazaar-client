@@ -49,6 +49,9 @@ export const updateProductSchema = z.object({
 
 export const updateProfileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
+  avatar: z.string(),
+  address: z.string(),
+  phone: z.string(),
   email: z.string().email("Invalid email address."),
 });
 

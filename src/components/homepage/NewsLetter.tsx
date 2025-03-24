@@ -48,7 +48,10 @@ const NewsLetter: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-yellow-500 via-red-400 to-orange-600 p-8 shadow-2xl lg:rounded-full text-center relative">
+    <div
+      className="bg-gradient-to-r from-yellow-500 via-red-400 to-orange-600 p-8 shadow-2xl lg:rounded-full text-center relative"
+      id="subscribe"
+    >
       <h2 className="text-3xl font-bold text-white mb-4">
         Subscribe to Our Newsletter
       </h2>

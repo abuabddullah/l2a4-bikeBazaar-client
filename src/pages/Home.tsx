@@ -1,22 +1,21 @@
 import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
+import BannerCarousel from "../components/homepage/BannerCarousel";
+import CompareProduct from "../components/homepage/CompareProduct";
+import FAQ from "../components/homepage/FAQ";
+import NewsLetter from "../components/homepage/NewsLetter";
+import OfferedProducts from "../components/homepage/OfferedProducts";
+import OurPartners from "../components/homepage/OurPartners";
+import StaticBanner from "../components/homepage/StaticBanner";
+import ProductCard from "../components/product/ProductCard";
+import HeadLine from "../components/shared/HeadLine";
+import SkeletonProductCard from "../components/shared/SkeletonProductCard";
 import {
   useGetBrandsQuery,
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from "../store/api";
-import OurPartners from "../components/homepage/OurPartners";
-import StaticBanner from "../components/homepage/StaticBanner";
-import FAQ from "../components/homepage/FAQ";
-import BannerCarousel from "../components/homepage/BannerCarousel";
-import NewsLetter from "../components/homepage/NewsLetter";
-import Carousel3d from "../components/homepage/Carousel3d";
-import OfferedProducts from "../components/homepage/OfferedProducts";
-import CompareProduct from "../components/homepage/CompareProduct";
-import HeadLine from "../components/shared/HeadLine";
 
 const banners = [
   {
@@ -36,7 +35,7 @@ const banners = [
 ];
 
 export default function Home() {
-  const { data: products } = useGetProductsQuery();
+  const { data: products, isLoading } = useGetProductsQuery();
   let { data: categories } = useGetCategoriesQuery();
   let { data: brands } = useGetBrandsQuery();
   if (categories?.length !== 3) {
@@ -64,6 +63,10 @@ export default function Home() {
           <HeadLine heading="Featured Products" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {isLoading &&
+            [...Array(4)].map((_, index) => (
+              <SkeletonProductCard key={index} />
+            ))}
           {products?.slice(0, 4).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

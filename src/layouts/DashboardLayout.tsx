@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { User2Icon, X } from "lucide-react";
 import { CgLogOut, CgShoppingCart } from "react-icons/cg";
 import { FiUsers } from "react-icons/fi";
 import { LuLayoutDashboard, LuPackage } from "react-icons/lu";
@@ -9,6 +9,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import { selectCurrentUser } from "../store/slices/authSlice";
+import { FaAviato } from "react-icons/fa6";
 
 export const DashboardLayout: React.FC = () => {
   const user = useAppSelector(selectCurrentUser);
@@ -22,6 +23,11 @@ export const DashboardLayout: React.FC = () => {
       { name: "Orders", href: "/dashboard/admin/orders", icon: CgShoppingCart },
       { name: "Customers", href: "/dashboard/admin/users", icon: FiUsers },
       {
+        name: "Profile",
+        href: "/dashboard/admin/profile",
+        icon: User2Icon,
+      },
+      {
         name: "Settings",
         href: "/dashboard/admin/settings",
         icon: IoSettingsOutline,
@@ -29,6 +35,11 @@ export const DashboardLayout: React.FC = () => {
     ];
   } else {
     navigation = [
+      {
+        name: "Profile",
+        href: "/dashboard/customer",
+        icon: User2Icon,
+      },
       {
         name: "My Orders",
         href: "/dashboard/customer/my-orders",

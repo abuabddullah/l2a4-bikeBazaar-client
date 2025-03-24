@@ -1,11 +1,11 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import moment from "moment";
 import { useGetProductsQuery } from "../../store/api";
-import ProductCard from "../ProductCard";
-import { IProduct } from "../../types";
 import { getLeastStockProducts } from "../../utils/getLeastStockProducts";
+import ProductCard from "../product/ProductCard";
 import HeadLine from "../shared/HeadLine";
+import SkeletonProductCard from "../shared/SkeletonProductCard";
 
 const OfferedProducts = () => {
   const { data: products, isLoading } = useGetProductsQuery();
@@ -99,6 +99,8 @@ const OfferedProducts = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {isLoading &&
+          [...Array(3)].map((_, index) => <SkeletonProductCard key={index} />)}
         {offeredProducts.map((product) => (
           <ProductCard isOffered={true} product={product} key={product?._id} />
         ))}

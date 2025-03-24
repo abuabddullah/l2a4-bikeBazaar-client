@@ -1,6 +1,6 @@
-import { FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaXTwitter } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
-import { TfiInstagram } from "react-icons/tfi";
+import { TfiInstagram, TfiLinkedin } from "react-icons/tfi";
 
 import { Link } from "react-router-dom";
 
@@ -39,33 +39,45 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/shipping" className="hover:text-white">
-                  Shipping Info
-                </Link>
+                <a href="/#subscribe" className="hover:text-white">
+                  Subscribe Info
+                </a>
               </li>
               <li>
-                <Link to="/returns" className="hover:text-white">
-                  Returns
-                </Link>
+                <a href="/#partners" className="hover:text-white">
+                  Partners
+                </a>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-white">
+                <a href="/#faq" className="hover:text-white">
                   FAQ
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-white">
+              <a
+                href="https://www.facebook.com/asifaowadud/"
+                target="_blank"
+                className="hover:text-white"
+              >
                 <SlSocialFacebook />
               </a>
-              <a href="#" className="hover:text-white">
-                <TfiInstagram />
+              <a
+                href="https://www.linkedin.com/in/asifaowadud"
+                target="_blank"
+                className="hover:text-white"
+              >
+                <TfiLinkedin />
               </a>
-              <a href="#" className="hover:text-white">
-                <FaXTwitter />
+              <a
+                href="https://github.com/abuabddullah"
+                target="_blank"
+                className="hover:text-white"
+              >
+                <FaGithub />
               </a>
             </div>
           </div>
