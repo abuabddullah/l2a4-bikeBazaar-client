@@ -16,6 +16,7 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from "../store/api";
+import FancyHeroSection from "../components/homepage/FancyHeroSection";
 
 const banners = [
   {
@@ -54,6 +55,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* fancy carousel */}
+      <FancyHeroSection/>
       {/* static banner */}
       <StaticBanner />
 
