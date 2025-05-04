@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* fancy carousel */}
-      <FancyHeroSection/>
+      {/* <FancyHeroSection/> */}
       {/* static banner */}
       <StaticBanner />
 
